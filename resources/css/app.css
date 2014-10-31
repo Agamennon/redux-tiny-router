@@ -10,6 +10,20 @@ body {
     height: 100%;
 }
 
+
+
+.centerSearch {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
+input.buscaNota {
+
+    margin-top: 8px;
+    height: 28px;
+}
+
 .addbutton {
     font-size: larger;
     background-color:transparent;
