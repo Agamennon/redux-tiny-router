@@ -1,0 +1,32 @@
+html{
+    height: 100%;
+}
+body {
+    overflow: hidden;
+    height: 100%;
+}
+
+.app-container {
+    height: 100%;
+}
+
+.addbutton {
+    font-size: larger;
+    background-color:transparent;
+    height: 95%;
+    width: 95%;
+    padding: 0 0 0 5px;
+
+}
+
+.addbutton:hover {
+    background-color: transparent;
+}
+
+.addbutton:focus{
+    background-color: transparent;
+}
+
+.listaNotas{
+    list-style-type: none;
+}

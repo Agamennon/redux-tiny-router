@@ -1,14 +1,14 @@
 {
-  "name": "teknaapp",
+  "name": "fossnote",
   "version": "0.1.0",
-  "homepage": "https://github.com/Agamennon/teknaapp",
+  "homepage": "https://github.com/Agamennon/fossnote",
   "authors": [
-    "agamennnon@gmail.com <trustno1>"
+    "agamennnon@gmail.com"
   ],
-  "description": "sistema tekna",
+  "description": "fossnote",
   "keywords": [
-    "tekna",
-    "sistema"
+    "notes",
+    "sync"
   ],
   "license": "none",
   "private": true,
@@ -20,23 +20,16 @@
     "tests"
   ],
   "dependencies": {
-      "html5Shiv":"http://html5shiv.googlecode.com/svn/trunk/html5.js",
-      "foundation": "http://foundation5.zurb.com/cdn/releases/foundation-3.2.5.zip",
+
       "foundation5": "http://foundation.zurb.com/cdn/releases/foundation-5.4.0.zip",
-      "angular-ui-ace":"*",
       "angular-foundation":"0.3.1",
-      "socket.io-client": "0.9.x",
       "angular": "1.2.23",
       "angular-animate" : "1.2.23",
       "angular-resource" : "1.2.23",
       "angular-route" : "1.2.23",
       "angular-cookies": "1.2.23",
-      "jquery" : "2.1.1",
-      "jquery-ui": "1.11.1",
       "momentjs": "2.8.2",
-      "jspdf": "master",
-      "printThis": "https://raw.github.com/jasonday/printThis/master/printThis.js",
-      "highcharts": "http://code.highcharts.com/zips/Highcharts-3.0.9.zip"
+      "pouchdb": "*"
   },
   "devDependencies":{
       "angular-mocks" : "1.2.23"

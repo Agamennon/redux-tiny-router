@@ -1,14 +1,14 @@
-var fossnote = angular.module('fossnote', ['mm.foundation','ngRoute','ngAnimate','ngCookies','ngResource'])
+var fossnote = angular.module('fossnote', ['mm.foundation','ngRoute'])
     .config(['$routeProvider', function($routeProvider){
 
-      /*  console.log('--- module & router ---');
+        console.log('--- module & router ---');
 
         $routeProvider.when('/', {
-            templateUrl: 'views/testes/testes.html',
-            controller: testesCtrl
+            templateUrl: 'app/list.html',
+            controller: listCtrl
         });
 
-        $routeProvider.otherwise({redirectTo: '/'});*/
+        $routeProvider.otherwise({redirectTo: '/'});
 
 
     }]);
@@ -16,7 +16,9 @@ var fossnote = angular.module('fossnote', ['mm.foundation','ngRoute','ngAnimate'
 
 
 
-function initCtrl($scope,$location,cache,routeAuth,$rootScope,routemain){
+
+
+function initCtrl($scope){
 
 
     console.log('--- init ctrl ---');
