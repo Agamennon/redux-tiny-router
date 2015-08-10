@@ -1,0 +1,48 @@
+
+
+
+.leftPanel {
+ //background-color: honeydew;
+ // background-color: white;
+ flex-basis: 50%;
+// max-width: 800px;
+ overflow: hidden;
+ // min-height: 100%;
+// min-width: 100%;
+ min-width: 300px;
+ background: #eee;
+// transition: flex-basis  400ms;
+ //transform: translateZ(0);
+ display: flex;
+ flex-flow: column;
+
+ &.mobile{
+  min-width: 0;
+  //flex-basis: 100%;
+ }
+
+ &.mobile.showNote{
+ // visibility: hidden;
+
+ // display:none;
+
+ // visibility: hidden;  //http://stackoverflow.com/questions/3331353/transitions-on-the-display-property
+
+//  flex-basis: 0;
+//  min-width: 0;
+
+
+//  display: none;
+ // flex-basis: 100%;
+ }
+
+
+ @import './notes/notes.scss';
+
+}
+
+
+
+
+
+

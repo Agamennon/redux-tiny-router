@@ -1,0 +1,60 @@
+
+.sidebar {
+  position: fixed;
+  width: 220px;
+  font-size: 1rem;
+}
+
+
+.title {
+  font-size: 1.4em; //16px
+  line-height: 3em;  //50px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.4em; //7px
+  color: #eee;
+  border-bottom: 1px solid #222;
+  background: #2a2a2a;
+}
+
+.nav li a {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  padding: 1.3em 1.2em 1.3em 4em; //15px 15px 15px 50px;
+  text-decoration: none;
+  font-size: 1.2em; //12px
+  color: #eee;
+  border-bottom: 1px solid #222;
+}
+
+.nav li a:before {
+  font: 1.3em fontawesome;
+  position: absolute;
+  top: 0.9em;
+  left: 1.2em; //20px
+}
+
+.nav li:nth-child(1) a:before { content: '\f00a'; }
+.nav li:nth-child(2) a:before { content: '\f02d'; }
+.nav li:nth-child(3) a:before { content: '\f02c'; }
+.nav li:nth-child(4) a:before { content: '\f013'; }
+
+
+.nav li a:hover {
+  background: #444;
+}
+
+.nav li a.active {
+  box-shadow: inset 5px 0 0 #5b5, inset 6px 0 0 #222;
+  background: #444;
+}
+
+/*
+
+@media only screen and (max-width: 700px) {
+  .leftPanel {
+    flex-basis: 0;
+  }
+}
+*/
