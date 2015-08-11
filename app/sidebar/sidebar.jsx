@@ -37,16 +37,16 @@ class Sidebar extends React.Component {
                 </div>
                 <ul className='nav'>
                     <li>
-                        <a onClick={()=>{this.props.signals.sideBarItemClick()}} className={classnames({'active': (this.props.router.path === '/all')})} href="#/all">All notes</a>
+                        <a onClick={()=>{this.props.signals.sideBarItemClick({path:'/all'})}} className={classnames({'active': (this.props.router.path === '/all')})} href="#/all">All notes</a>
                     </li>
                     <li>
-                        <a onClick={()=>{this.props.signals.sideBarItemClick()}} className={classnames({'active': (this.props.router.path === '/notebooks')})} href="#/notebooks">Notebooks</a>
+                        <a onClick={()=>{this.props.signals.sideBarItemClick({path:'/notebooks'})}} className={classnames({'active': (this.props.router.path === '/notebooks')})} href="#/notebooks">Notebooks</a>
                     </li>
                     <li>
-                        <a onClick={()=>{this.props.signals.sideBarItemClick()}} className={classnames({'active': (this.props.router.path === '/tags')})} href="#/tags">Tags</a>
+                        <a onClick={()=>{this.props.signals.sideBarItemClick({path:'/tags'})}} className={classnames({'active': (this.props.router.path === '/tags')})} href="#/tags">Tags</a>
                     </li>
                     <li>
-                        <a onClick={()=>{this.props.signals.sideBarItemClick()}} className={classnames({'active': (this.props.router.path === '/settings')})} href="#/settings">Settings</a>
+                        <a onClick={()=>{this.props.signals.sideBarItemClick({path:'/settings'})}} className={classnames({'active': (this.props.router.path === '/settings')})} href="#/settings">Settings</a>
                     </li>
                 </ul>
             </div>

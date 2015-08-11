@@ -76,7 +76,9 @@ const Router = function (routes,controller) {
     function doHashChange(url){
 
         const hash = url || location.hash.substr(1);
+     //   console.log(hash);
         const router  = matchRoutes(hash);
+      //  console.log(router);
         if (router !== false) {  //false quer dizer que o state vai ser resolvido pelo cliente caso contrario setamos router
             controller.signals.hashChange({router: router})
         }
@@ -95,12 +97,7 @@ const Router = function (routes,controller) {
             preventHashChangeEvent = false;
     });
 
-
-   /* controller.eventEmitter.on('change', function (state) {
-        api.setHashWithState(state);
-    });*/
-
-    controller.eventEmitter.on('change', function (state) {
+    controller.eventEmitter.on('change', function (state) { //links normais dentro nao vao funcionar
         api.setHash(state.router.hash);
     });
 

@@ -16,7 +16,8 @@ controller.signal ('noteAdded',actions.addNote);
 controller.signal ('noteSelected',actions.navigateToNote);
 controller.signal ('showNoteToggled',actions.toggleShowNote);
 controller.signal ('hamburgerClicked',actions.toggleSideBar);
-controller.signal ('sideBarItemClick',actions.toggleSideBar);
+controller.signal ('routeChange',actions.navigateTo);
+controller.signal ('sideBarItemClick',actions.toggleSideBar,actions.navigateTo);
 controller.signal ('notesClicked',actions.closeSideBar);
 controller.signal ('modeChanged',actions.setAppMode,actions.closeSideBar);
 
@@ -73,11 +74,22 @@ controller.signal('noteRouted', function noteRoute (args, state) {
     state.set(['selectedNote'],note);
 });
 
+controller.signal('notebooksRouted', function notebooksRouted (args, state) {
 
-controller.signal('testRouted', function testRoute (args, state) {
-  state.set(['router'], args.router);
-  console.log('test');
+    state.set(['router'], args.router);
+
 });
+
+controller.signal('tagsRouted', function tagsRouted (args, state) {
+    state.set(['router'], args.router);
+
+});
+
+controller.signal('settingsRouted', function settingsRouted (args, state) {
+    state.set(['router'], args.router);
+
+});
+
 
 
 
@@ -85,11 +97,15 @@ var router = Router (
     {
         '/all':controller.signals.allRouted,
         '/all?id':controller.signals.noteRouted,
-        '/all?id&some':controller.signals.testRouted
+        '/notebooks':controller.signals.notebooksRouted,
+        '/tags':controller.signals.tagsRouted,
+        '/settings':controller.signals.settingsRouted
+
     }
     ,controller);
 
-window.location.assign('#/all');
+//window.location.assign('#/all');
+controller.signals.routeChange({path:'/all'});
 
 Media(controller);
 

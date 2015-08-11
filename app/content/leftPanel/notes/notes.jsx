@@ -32,7 +32,7 @@ class notes extends React.Component {
     }
 
     render () {
-        console.log('redering');
+
         var theNotes = this.renderNotes();
         return (
             <div className='notesWrapper'>

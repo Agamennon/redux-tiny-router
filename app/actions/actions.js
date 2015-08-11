@@ -41,6 +41,11 @@ export default {
         state.set(['router','hash'],'/all?id='+args.id);
     },
 
+    navigateTo(args,state){
+         console.log(args);
+        state.set(['router','hash'],args.path);
+    },
+
 
     hideNote (args,state){
         state.set('showNote',false);
@@ -59,13 +64,20 @@ export default {
 
     toggleSideBar(args,state){
        state.set('sideBarOpen',!state.get('sideBarOpen'));
-        console.log('toggoling side bar');
     },
 
 
     closeSideBar(args,state){
         state.set('sideBarOpen',false);
     },
+
+
+
+
+
+
+
+
 
 
     increaseRef (args,state){
