@@ -5,7 +5,7 @@ var path = require('path');
 
 module.exports = function(dev_port,paths) {
 
-    var cfg =  require(path.resolve(paths.webpack,'base.webpack.js'))(paths);
+    var cfg =  require('./base.webpack.js')(paths);
 
 //cfg.devtool = 'cheap-module-eval-source-map';
  //   cfg.devtool = 'eval';  //usando SourceMapDevToolPlugin para o webpack pegar isso
@@ -24,8 +24,13 @@ module.exports = function(dev_port,paths) {
     ],cfg.plugins);
 
     cfg.module.loaders[0].loaders.unshift('react-hot');
+
     return cfg;
+
 };
+
+
+
 
 
 //module.exports = cfg;

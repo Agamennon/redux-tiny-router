@@ -1,5 +1,7 @@
+
 var webpack = require('webpack');
 var path = require('path');
+
 module.exports = function(mode,port,dev_port,paths){
 
     var webpackFile;
@@ -9,10 +11,13 @@ module.exports = function(mode,port,dev_port,paths){
         case 'hot':  webpackFile =  path.resolve(paths.webpack,'hot.webpack.js'); break;
         case 'hotify':  webpackFile = path.resolve(paths.webpack,'hotify.webpack.js'); break;
         case 'production': webpackFile = path.resolve(paths.webpack,'production.webpack.js'); break;
+        case 'test': webpackFile = path.resolve(paths.webpack,'test.webpack.js'); break;
     }
 
     var bundleStart = null;
+    // var cfg = require('../fuck.webpack.js')(paths); for buildServer.js
     var compiler = webpack(require(webpackFile)(dev_port,paths));
+
 
     compiler.plugin('compile', function() {
         bundleStart = Date.now();
@@ -37,10 +42,12 @@ module.exports = function(mode,port,dev_port,paths){
             }
         });
         bundler.listen(dev_port, 'localhost', function () {
+      //  bundler.listen(dev_port, '192.168.25.10', function () {
             console.log('Aguarde...');
         });
     }else {
         compiler.run(function(err, stats) {
+            console.log('Production compiler done...');
         });
     }
 

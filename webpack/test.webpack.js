@@ -2,13 +2,13 @@ var webpack = require('webpack');
 var _ = require('lodash');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
-//var ReactStylePlugin = require('react-style-webpack-plugin');
+var ReactStylePlugin = require('react-style-webpack-plugin');
 
 module.exports = function(dev_port,paths){
-    //ReactStylePlugin.loader();
+
     var cfg =  require(path.resolve(paths.webpack,'base.webpack.js'))(paths);
 
-//    cfg.module.loaders[0].loaders.unshift(ReactStylePlugin.loader());
+   // cfg.module.loaders[0].loaders.unshift(ReactStylePlugin.loader());
     cfg.module.loaders[1].loader =  ExtractTextPlugin.extract(
         // activate source maps via loader query
         'css?sourceMap!' +
@@ -17,7 +17,7 @@ module.exports = function(dev_port,paths){
 
     );
     cfg.plugins = _.union([
-  //      new ReactStylePlugin('react.css'),
+    //    new ReactStylePlugin('styles.css'),
         new ExtractTextPlugin('styles.css'),
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin({
