@@ -9,8 +9,8 @@ utils.parseHash = function (hash){
     }
     var search = hash.split('?')[1] || '' ;
     var router = {
-        hash:hash,
-        path:path,
+        hash,
+        path,
         search:qs.parse(search)
     };
     router.pattern = utils.getPattern(router);
