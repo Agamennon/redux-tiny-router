@@ -1,13 +1,13 @@
 {
   "name": "redux-tiny-router",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "author": {
     "name": "Guilherme Guerchmann",
     "email": "gui@guerch.net",
     "url": "http://www.guerch.net"
   },
   "description": "A Router made for Redux and made for universal apps! stop using the router as a controller... its just state!",
-  "main": "src/shared/redux/router/init.js",
+  "main": "src/index.js",
   "keywords": [
     "redux",
     "router",
