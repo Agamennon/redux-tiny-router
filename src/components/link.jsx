@@ -7,8 +7,8 @@ export class Link extends React.Component {
 
     click(e){
         e.preventDefault();
-        console.log("i was clicqued dude!!!!!");
-        console.log(this.context.store.dispatch(actions.navigateTo('/megazord',{gui:'legal'})));
+      //  console.log("i was clicqued dude!!!!!");
+        this.context.store.dispatch(actions.navigateTo('/megazord',{gui:'legal'}));
     }
 
     render() {

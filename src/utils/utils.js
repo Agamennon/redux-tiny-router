@@ -6,12 +6,16 @@ function parseHash  (hash){
     if ((path.charAt(path.length-1) === '/') && (path.length > 1)){
         path = path.substr(0,path.length-1);  //remove ultimo caracter (o / )
     }
-    var search = hash.split('?')[1] || '' ;
+    var search = qs.parse(hash.split('?')[1] || '') ;
+    if (search.debug_session){
+        delete search.debug_session
+    }
     var router = {
         hash,
         path,
-        search:qs.parse(search)
+        search
     };
+
     var pattern = getPattern(router);
     router.pattern = pattern;
     return router;
