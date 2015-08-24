@@ -1,24 +1,24 @@
-var qs = require('query-string');
+import {default as qs} from 'query-string'
+//var qs = require('query-string');
 
-var utils = {};
-
-utils.parseHash = function (hash){
+function parseHash  (hash){
     var path = hash.split('?')[0];
     if ((path.charAt(path.length-1) === '/') && (path.length > 1)){
         path = path.substr(0,path.length-1);  //remove ultimo caracter (o / )
     }
     var search = hash.split('?')[1] || '' ;
     var router = {
-        hash:hash,
-        path:path,
+        hash,
+        path,
         search:qs.parse(search)
     };
-    router.pattern = utils.getPattern(router);
+    var pattern = getPattern(router);
+    router.pattern = pattern;
     return router;
 
-};
+}
 
-utils.getPattern = function (routerObj){
+function getPattern (routerObj){
     var patern = routerObj.path;
     Object.keys(routerObj.search).map(function(item,index,array){
         if (index === 0){
@@ -28,13 +28,16 @@ utils.getPattern = function (routerObj){
         }
     });
     return patern;
-};
+}
 
-utils.toQueryString = function (path,search){
+function  toQueryString (path,search){
     return path + '?'+ qs.stringify(search);
-};
+}
 
-module.exports = utils;
-
-
-//export default utils
+export default {
+    utils:{
+    parseHash,
+    getPattern,
+    toQueryString
+    }
+}

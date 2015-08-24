@@ -1,34 +1,25 @@
 var qs = require('query-string');
-var actions = require('../actions/actions.js');
+import * as actions from '../actions/actions.js'
 
-function init (store) {
-    var hash;
-    window.addEventListener('hashchange', function(){
-        hash = location.hash.substr(1)||'/';
-        store.dispatch(actions.handleHashChange(hash));
-        /*store.dispatch({
-         type:'ROUTER_NAVIGATION',
-         hash
-         });*/
-    });
+export function init (store) {
+
+    window.onpopstate = function(data){
+        var location = window.location.pathname + window.location.search;
+        store.dispatch(actions.handleHashChange(location));
+    };
+    //todo add hash option
+/*    window.addEventListener('hashchange', function(data){
+        console.log('hash change');
+        console.log(data);
+    });*/
 }
 
+export function initUniversal (url,createStore){
 
-function initUniversal (url,createStore){
-
-    var store = createStore({},'http://'+url,true);
+    let store = createStore({},'http://'+url,true);
     store.dispatch(actions.handleHashChange(url.substring(url.indexOf('/'))));
     var state =  store.getState();
-
     store = createStore(state,'http://'+url);
-
-    return {
-        state:state,
-        store:store
-    }
+    return {state,store}
 }
 
-module.exports  = {
-    init:init,
-    initUniversal:initUniversal
-};

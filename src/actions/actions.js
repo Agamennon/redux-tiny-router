@@ -1,26 +1,15 @@
-
-
-function handleHashChange(hash){
+export function handleHashChange(hash){
     return {
         type:'ROUTER_NAVIGATION',
-        hash:hash
+        hash
     };
-    //this.props.dispatch(actions.navigateToFromLink(hash));
-
 }
 
-function navigateTo(path,search){
-    console.log(path,search);
+export function navigateTo(path,search){
     return {
         type:'ROUTER_NAVIGATE_TO',
-        path:path,
-        search:search
-
+        path,
+        search
     }
 }
 
-
-module.exports = {
-    handleHashChange:handleHashChange,
-    navigateTo:navigateTo
-};
