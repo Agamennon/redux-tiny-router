@@ -22,6 +22,7 @@ function router (state = {},action= {}){
     }
 }
 
+
 export default {
     router:{router}
 }

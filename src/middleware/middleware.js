@@ -1,4 +1,6 @@
-import {utils} from '../utils/utils.js';
+//import * as utils from '../utils/utils.js';
+import {utils}  from '../utils/utils.js';
+
 
 export function middleware ({ dispatch, getState }) {
     return (next) => {
@@ -8,7 +10,7 @@ export function middleware ({ dispatch, getState }) {
                // console.log(action);
                 router = utils.parseHash(action.hash);
                 action.router = router;
-                return(next(action));
+                return(next(action));sa
             }
 
             if (action.type === 'ROUTER_NAVIGATE_TO_HASH'){

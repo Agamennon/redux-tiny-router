@@ -6,6 +6,7 @@ export function init (store) {
    // var location = window.location.pathname + window.location.search;
    // store.dispatch(actions.handleHashChange(location));
     window.onpopstate = function(data){
+        console.log('window on popState');
         var location = window.location.pathname + window.location.search;
 
         store.dispatch(actions.handleHashChange(location));
@@ -19,11 +20,21 @@ export function init (store) {
 
 export function initUniversal (url,createStore){
 
-    let store = createStore({},'http://'+url);
-    //console.log(url.substring(url.indexOf('/'))+ ' FROM INIT UNIVERSAL');
-    store.dispatch(actions.handleHashChange(url.substring(url.indexOf('/'))));
-    var state =  store.getState();
-    store = createStore(state,'http://'+url);
-    return {state,store}
+    return new Promise ((resolve,reject) =>{
+
+        let store = createStore({},'http://'+url);
+        var state = {};
+        store.dispatch(actions.handleHashChange(url.substring(url.indexOf('/'))));
+     //   resolve({state,store});
+        var  unsubscribe = store.subscribe(function(){
+          //  console.log('nerver heppened!');
+            unsubscribe();
+            state =  store.getState();
+            store = createStore(state,'http://'+url);
+            resolve({state,store});
+        });
+
+    });
+
 }
 

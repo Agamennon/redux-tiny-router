@@ -1,4 +1,5 @@
 export function handleHashChange(hash){
+
     return {
         type:'ROUTER_NAVIGATION',
         hash

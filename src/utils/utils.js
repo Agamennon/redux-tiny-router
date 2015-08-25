@@ -1,7 +1,7 @@
-import {default as qs} from 'query-string'
+import * as qs from 'query-string'
 //var qs = require('query-string');
 
-function parseHash  (hash){
+ function parseHash  (hash){
     var path = hash.split('?')[0];
     if ((path.charAt(path.length-1) === '/') && (path.length > 1)){
         path = path.substr(0,path.length-1);  //remove ultimo caracter (o / )
@@ -22,7 +22,7 @@ function parseHash  (hash){
 
 }
 
-function getPattern (routerObj){
+ function getPattern (routerObj){
     var patern = routerObj.path;
     Object.keys(routerObj.search).map(function(item,index,array){
         if (index === 0){
@@ -34,11 +34,11 @@ function getPattern (routerObj){
     return patern;
 }
 
-function  toQueryString (path,search){
+ function toQueryString (path,search){
     return path + '?'+ qs.stringify(search);
 }
 
-export default {
+export default  {
     utils:{
     parseHash,
     getPattern,
