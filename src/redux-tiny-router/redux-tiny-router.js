@@ -20,19 +20,33 @@ export function init (store) {
 
 export function initUniversal (url,createStore){
 
-    return new Promise ((resolve,reject) =>{
 
-        let store = createStore({},'http://'+url);
+    return new Promise ((resolve,reject) =>{
+        var store = createStore({},'http://'+url);
         var state = {};
-        store.dispatch(actions.handleHashChange(url.substring(url.indexOf('/'))));
-     //   resolve({state,store});
-        var  unsubscribe = store.subscribe(function(){
-          //  console.log('nerver heppened!');
+
+        var  unsubscribe = store.subscribe(()=>{
+            //   console.log('nerver heppened!');
             unsubscribe();
             state =  store.getState();
             store = createStore(state,'http://'+url);
             resolve({state,store});
         });
+
+     /*   store.subscribe(() =>
+                console.log(store.getState())
+        );*/
+
+     //   store.dispatch(actions.vai());
+        store.dispatch(actions.handleHashChange(url.substring(url.indexOf('/'))));
+
+        /*setTimeout(()=>{
+            console.log(store.getState());
+        },5000);*/
+    //    resolve({state,store});
+
+
+
 
     });
 

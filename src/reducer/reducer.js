@@ -6,7 +6,7 @@ function router (state = {},action= {}){
 
         case 'ROUTER_NAVIGATION':
 
-     //       console.log('SET_ROUTER_STATE FROM LINK REDUCER CALLED!! with = '+action.path+action.search);
+            //       console.log('SET_ROUTER_STATE FROM LINK REDUCER CALLED!! with = '+action.path+action.search);
             //console.log(action);
             var routerObj = action.router;
 
@@ -16,10 +16,24 @@ function router (state = {},action= {}){
                 ...routerObj
             };
 
+        case 'MERDA':
+
+            console.log('router reducer returning merda');
+            console.log(action);
+            return {
+                ...state,
+                merda:'supermerda'
+
+            };
 
         default:
-            return state
+            console.log('end router reducer');
+            console.log(action);
+            return {state}
     }
+
+
+
 }
 
 

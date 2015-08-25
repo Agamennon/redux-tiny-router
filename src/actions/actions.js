@@ -6,6 +6,15 @@ export function handleHashChange(hash){
     };
 }
 
+export function vai(){
+
+    return {
+        type:'MERDA'
+
+    };
+}
+
+
 export function navigateTo(path,search){
     return {
         type:'ROUTER_NAVIGATE_TO',

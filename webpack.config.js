@@ -28,13 +28,14 @@ module.exports = {
         'react': reactExternal,
         'query-string':queryStringExternal
     },
-    exclude:'React',
+ //   exclude:'React',
  //   devtool:'source-map',
     module: {
         loaders: [
             {
                 test: /\.jsx?$/,
                 loader:'babel?stage=0',
+             //   loader:'babel?optional[]=runtime&stage=0',
          //       loader:'babel?optional[]=runtime&stage=0',
                 include:[path.resolve('src')],
                 exclude: /node_modules/

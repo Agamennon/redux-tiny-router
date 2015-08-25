@@ -5,12 +5,12 @@ import {utils}  from '../utils/utils.js';
 export function middleware ({ dispatch, getState }) {
     return (next) => {
         return (action) => {
+
             var router;
             if (action.type === 'ROUTER_NAVIGATION'){
-               // console.log(action);
                 router = utils.parseHash(action.hash);
                 action.router = router;
-                return(next(action));sa
+                return(next(action));
             }
 
             if (action.type === 'ROUTER_NAVIGATE_TO_HASH'){
@@ -42,7 +42,8 @@ export function middleware ({ dispatch, getState }) {
                 return(next(action));
                 //  console.log(action);
             }
-
+            console.log('end router middleware');
+            console.log(action);
             return  next(action);
         }
     }
