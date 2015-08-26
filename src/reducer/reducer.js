@@ -18,8 +18,7 @@ function router (state = {},action= {}){
 
         case 'MERDA':
 
-            console.log('router reducer returning merda');
-            console.log(action);
+
             return {
                 ...state,
                 merda:'supermerda'
@@ -27,9 +26,8 @@ function router (state = {},action= {}){
             };
 
         default:
-            console.log('end router reducer');
-            console.log(action);
-            return {state}
+
+            return {...state}
     }
 
 

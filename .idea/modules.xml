@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/fossnote.iml" filepath="$PROJECT_DIR$/.idea/fossnote.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/redux-tiny-router.iml" filepath="$PROJECT_DIR$/.idea/redux-tiny-router.iml" />
     </modules>
   </component>
 </project>

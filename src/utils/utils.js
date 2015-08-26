@@ -1,6 +1,13 @@
 import * as qs from 'query-string'
 //var qs = require('query-string');
 
+var unfulfilled = 0;
+
+  function getUnfulfilled(){
+      return unfulfilled;
+  }
+
+
  function parseHash  (hash){
     var path = hash.split('?')[0];
     if ((path.charAt(path.length-1) === '/') && (path.length > 1)){
@@ -40,6 +47,7 @@ import * as qs from 'query-string'
 
 export default  {
     utils:{
+    unfulfilled,
     parseHash,
     getPattern,
     toQueryString
