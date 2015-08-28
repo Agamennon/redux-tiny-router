@@ -5,6 +5,15 @@ import React from 'react';
 
 var skipevent = false;
 export function init (store) {
+
+    window.onbeforeunload = function(e) {
+      if (store.getState().router.preventNavigation){
+          return store.getState().router.preventNavigationMessage
+      }
+    };
+
+
+
     window.onpopstate = function(e){
         console.log('SKIPEVENT = '+skipevent);
         if (skipevent) {

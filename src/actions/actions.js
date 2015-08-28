@@ -41,10 +41,11 @@ export function rtrChangeUrl(url,fromPopEvent){
 
 
 
-export function rtrPreventNavigation(){
+export function rtrPreventNavigation(message){
     console.log('RTR_PREVENT_NAVIGATION FIRED!!!');
     return {
-        type:'RTR_PREVENT_NAVIGATION'
+        type:'RTR_PREVENT_NAVIGATION',
+        message
     }
 }
 

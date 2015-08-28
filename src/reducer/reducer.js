@@ -9,7 +9,8 @@ function router (state = {},action= {}){
      //         console.log('reducer setting preventNavigation = true');
               return {
                     ...state,
-                    preventNavigation:true
+                    preventNavigation:true,
+                    preventNavigationMessage:action.message
                  };
 
 
