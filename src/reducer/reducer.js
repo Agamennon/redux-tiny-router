@@ -4,26 +4,40 @@ function router (state = {},action= {}){
     //console.log('router reducer = '+action.type);
     switch (action.type) {
 
-        case 'ROUTER_NAVIGATION':
 
-            //       console.log('SET_ROUTER_STATE FROM LINK REDUCER CALLED!! with = '+action.path+action.search);
-            //console.log(action);
-            var routerObj = action.router;
+        case 'RTR_PREVENT_NAVIGATION':
+     //         console.log('reducer setting preventNavigation = true');
+              return {
+                    ...state,
+                    preventNavigation:true
+                 };
 
 
+        case 'RTR_ALLOW_NAVIGATION':
+     //       console.log('reducer setting preventNavigation = false');
             return {
                 ...state,
+                preventNavigation:false
+            };
+
+        case 'RTR_ROUTER_NAVIGATION':
+            var routerObj = action.router;
+            return {
                 ...routerObj
             };
+            /*return {
+                ...state,
+                ...routerObj
+            };*/
 
-        case 'MERDA':
-
-
+        case 'RTR_PREVENTED_NAVIGATION_ATTEMPTED':
+      //      console.log("RTR_PREVENTED_NAVIGATION_ATTEMPTED " + action.url);
             return {
                 ...state,
-                merda:'supermerda'
-
+                attemptedOnPrevent:action.url
             };
+
+
 
         default:
 

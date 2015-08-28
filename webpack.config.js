@@ -15,6 +15,8 @@ var queryStringExternal = {
     amd: 'query-string'
 };
 
+
+
 module.exports = {
     //context: __dirname + "/src",
     entry: "./src/index.js",
@@ -28,6 +30,7 @@ module.exports = {
         'react': reactExternal,
         'query-string':queryStringExternal
     },
+
  //   exclude:'React',
  //   devtool:'source-map',
     module: {

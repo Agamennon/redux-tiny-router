@@ -22,9 +22,12 @@
     "url": "https://github.com/Agamennon/redux-tiny-router.git"
   },
   "license": "MIT",
+  "peerDependencies": {
+    "react": "^0.13.3"
+  },
   "dependencies": {
     "query-string": "^2.4.0",
-    "react": "^0.13.3"
+    "redux": "^1.0.1"
   },
   "devDependencies": {
     "babel-loader": "^5.3.2",
