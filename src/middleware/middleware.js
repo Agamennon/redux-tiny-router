@@ -17,9 +17,9 @@ export function middleware ({ dispatch, getState }) {
     return (next) => {
         return (action) => {
 
-            var router;
 
-            console.log(action.type);
+
+            var router,pending;
 
             if (action.type === 'RTR_ROUTER_NAVIGATION'){
                 changeBrowserURL(action);
@@ -31,6 +31,9 @@ export function middleware ({ dispatch, getState }) {
             if (action.type === 'RTR_ACTION'){
                return action.work(dispatch,getState);
             }
+
+
+
 
             return  next(action);
 

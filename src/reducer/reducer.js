@@ -1,7 +1,9 @@
 
 function router (state = {},action= {}){
 
-    //console.log('router reducer = '+action.type);
+    console.log('router reducer = '+action.type);
+
+
     switch (action.type) {
 
 
@@ -24,6 +26,7 @@ function router (state = {},action= {}){
         case 'RTR_ROUTER_NAVIGATION':
             var routerObj = action.router;
             return {
+                ...state,
                 ...routerObj
             };
             /*return {
@@ -37,6 +40,26 @@ function router (state = {},action= {}){
                 ...state,
                 attemptedOnPrevent:action.url
             };
+
+
+
+
+        case 'RTR_UNIVERSAL_SET_PENDING':
+            //      console.log("RTR_PREVENTED_NAVIGATION_ATTEMPTED " + action.url);
+            return {
+                ...state,
+                pending:action.val,
+                promiseDone:action.done
+            };
+
+
+        case 'RTR_UNIVERSAL_PROMISE_DONE':
+            //      console.log("RTR_PREVENTED_NAVIGATION_ATTEMPTED " + action.url);
+            return {
+                ...state,
+                promiseDone:true
+            };
+
 
 
 

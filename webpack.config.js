@@ -8,6 +8,17 @@ var reactExternal = {
     amd: 'react'
 };
 
+/*
+
+var reduxExternal = {
+    root: 'redux',
+    commonjs2: 'redux',
+    commonjs: 'redux',
+    amd: 'redux'
+};
+*/
+
+
 var queryStringExternal = {
     root: 'query-string',
     commonjs2: 'query-string',
@@ -28,8 +39,10 @@ module.exports = {
     },
     externals: {
         'react': reactExternal,
+  //      'redux': reduxExternal,
         'query-string':queryStringExternal
     },
+  //  target:'node',
 
  //   exclude:'React',
  //   devtool:'source-map',

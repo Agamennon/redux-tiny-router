@@ -4,6 +4,28 @@ import * as qs from 'query-string'
 var unfulfilled = 0;
 var navindex = 0;
 
+
+function unfull()
+{
+    return new function(){
+       var unfull = 0;
+       return {
+           incUnfull: ()=>{
+               unfull++;
+           },
+           decUnfull: ()=>{
+               unfull--
+           },
+           getUnfull: ()=>{
+               return unfull
+           },
+           setUnfull: (val)=>{
+               unfull = val;
+           }
+       }
+    };
+}
+
 function toPattern (path,params){
     var patern = path;
     Object.keys(params).map(function(item,index,array){
@@ -37,14 +59,6 @@ function urlToRouter (url){
     return router;
 
 }
-
-
-
-
-
-
-
-
 
 
 

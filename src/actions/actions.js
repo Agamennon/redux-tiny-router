@@ -42,7 +42,7 @@ export function rtrChangeUrl(url,fromPopEvent){
 
 
 export function rtrPreventNavigation(message){
-    console.log('RTR_PREVENT_NAVIGATION FIRED!!!');
+    console.log('RTR_PREVENT_NAVIGATION FIRED GHOST LOG!!!');
     return {
         type:'RTR_PREVENT_NAVIGATION',
         message
@@ -89,3 +89,56 @@ export function rtrDoPreventedNavigation(){
         ignorePrevent:true
     }*/
 }
+
+export function rtrUniversalSetPeniding(val,done){
+    console.log('rtrUniversalsetPending action');
+    return {
+        type:'RTR_UNIVERSAL_SET_PENDING',
+        val,
+        done
+    }
+}
+
+
+
+export function rtrUniversalPromiseDone(val){
+    return {
+        type:'RTR_UNIVERSAL_PROMISE_DONE'
+    }
+}
+
+/*
+export function rtrUniversalPendingChanged(val){
+
+    return {
+        type:'RTR_ACTION',
+        work: (dispatch,getState)=>{
+            dispatch(rtrUniversalSetPeniding(val));
+        }
+    }
+}
+
+
+
+
+
+export function rtrUniversalDone(val){
+    console.log('rtrUniversalDone action');
+    return {
+        type:'RTR_UNIVERSAL_DONE',
+        val
+    }
+}
+*/
+
+
+/*
+
+
+export function rtrUniversalSendPromise(promise){
+    console.log('rtrUniversalSendPromise action');
+    return {
+        type:'RTR_UNIVERSAL_SEND_PROMISE',
+        data:{promise}
+    }
+}*/
