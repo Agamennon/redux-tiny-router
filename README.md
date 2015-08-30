@@ -8,7 +8,7 @@ Its simple, and its small
 
 Create your store with the redux-tiny-router middleware and reducer
 
-```
+```es6
 import { createStore, applyMiddleware, combineReducers} from 'redux';
 import { middleware as reduxTinyRouterMiddleware, reducer as reduxTinyRouterReducer } from 'redux-tiny-router';
 import * as yourReducers from './reducers'
@@ -23,7 +23,7 @@ Standard stuff, for now you just added a middleware and a reducer from redux-tin
 that returns the store  that you can import for convenience and if you plan on doing an Universal app 
 
 Now you only have to call the init function with the store before you render your app:
-```
+```es6
 import { reduxTinyRouter } from 'redux-tiny-router';
 
  reduxTinyRouter.init(store);
@@ -33,7 +33,6 @@ import { reduxTinyRouter } from 'redux-tiny-router';
   );
 
 ...
-
 ```
 DONE!
 
