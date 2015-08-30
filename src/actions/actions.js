@@ -2,6 +2,7 @@
 import {utils} from '../utils/utils.js';
 
 
+// ****************************** NAVIGATION *****************************************
 export function rtrNavigateTo(path,params){
     var url = utils.toQueryString(path,params);
     return {
@@ -31,7 +32,6 @@ export function rtrUrlChanged(url,fromPopEvent){
 
 export function rtrChangeUrl(url,fromPopEvent){
     var router = utils.urlToRouter(url);
-    console.log('rtrChangeUrl FIRED!');
     return {
         type:'RTR_ROUTER_NAVIGATION',
         router,
@@ -41,8 +41,9 @@ export function rtrChangeUrl(url,fromPopEvent){
 
 
 
+
+//  ************************* NAVIGATION PREVENTION *************************************
 export function rtrPreventNavigation(message){
-    console.log('RTR_PREVENT_NAVIGATION FIRED GHOST LOG!!!');
     return {
         type:'RTR_PREVENT_NAVIGATION',
         message
@@ -50,14 +51,12 @@ export function rtrPreventNavigation(message){
 }
 
 export function rtrAllowNavigation(){
-    console.log('RTR_ALLOW_NAVIGATION FIRED!!!');
     return {
         type:'RTR_ALLOW_NAVIGATION'
     }
 }
 
 export function rtrPreventedNavigationAttempted(url){
-    console.log('FUCKING DISPATCHING PREVENT ATTEMPT  === '+url);
     return {
         type:'RTR_PREVENTED_NAVIGATION_ATTEMPTED',
         url
@@ -79,19 +78,16 @@ export function rtrDoPreventedNavigation(){
                 history.forward();
                 return
             }
-            console.log('DO PREVENT FIRE!!!!!');
             dispatch(rtrChangeUrl(url))
         }
 
     };
-    /*return {
-        type:'RTR_DO_PREVENTED_NAVIGATION',
-        ignorePrevent:true
-    }*/
 }
 
+
+
+//  ************************* UNIVERSAL HELPERS *************************************
 export function rtrUniversalSetPeniding(val,done){
-    console.log('rtrUniversalsetPending action');
     return {
         type:'RTR_UNIVERSAL_SET_PENDING',
         val,
@@ -99,46 +95,9 @@ export function rtrUniversalSetPeniding(val,done){
     }
 }
 
-
-
-export function rtrUniversalPromiseDone(val){
+export function rtrUniversalPromiseDone(){
     return {
         type:'RTR_UNIVERSAL_PROMISE_DONE'
     }
 }
 
-/*
-export function rtrUniversalPendingChanged(val){
-
-    return {
-        type:'RTR_ACTION',
-        work: (dispatch,getState)=>{
-            dispatch(rtrUniversalSetPeniding(val));
-        }
-    }
-}
-
-
-
-
-
-export function rtrUniversalDone(val){
-    console.log('rtrUniversalDone action');
-    return {
-        type:'RTR_UNIVERSAL_DONE',
-        val
-    }
-}
-*/
-
-
-/*
-
-
-export function rtrUniversalSendPromise(promise){
-    console.log('rtrUniversalSendPromise action');
-    return {
-        type:'RTR_UNIVERSAL_SEND_PROMISE',
-        data:{promise}
-    }
-}*/

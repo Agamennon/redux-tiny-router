@@ -7,18 +7,13 @@ export class Link extends React.Component {
 
     click(e){
         e.preventDefault();
-      //  console.log("i was clicqued dude!!!!!");
-        this.context.store.dispatch(actions.navigateTo('/megazord',{gui:'legal'}));
+        this.context.store.dispatch(actions.rtrNavigateTo(this.props.path,this.props.search));
     }
 
     render() {
-     //   console.log(this.context);
         return (
             <a onClick={this.click.bind(this)}>{this.props.children}</a>
         );
     }
 }
 
-
-/*
-<a onClick={this.click.bind(this)}>{this.props.children}</a>*/

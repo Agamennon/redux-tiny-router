@@ -17,23 +17,16 @@ export function middleware ({ dispatch, getState }) {
     return (next) => {
         return (action) => {
 
-
-
-            var router,pending;
-
+            //the main action concerning the user
             if (action.type === 'RTR_ROUTER_NAVIGATION'){
                 changeBrowserURL(action);
-                console.log('RTR_ROUTER_NAVIGATION on middleware');
                 return  next(action)
 
             }
-
+            //special action "a special thunk just for the router"
             if (action.type === 'RTR_ACTION'){
                return action.work(dispatch,getState);
             }
-
-
-
 
             return  next(action);
 
