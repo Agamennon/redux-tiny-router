@@ -14,17 +14,6 @@ export function init (store) {
     var url = __UNIVERSAL__ ? store.getState().router.url : window.location.pathname + window.location.search;
     store.dispatch(actions.rtrUrlChanged(url));
 
-    /* if (!__UNIVERSAL__){
-     var url = window.location.pathname + window.location.search;
-     // setTimeout(()=>{
-     store.dispatch(actions.rtrUrlChanged(url));
-     //  },1000);
-
-     } else {
-     var url = store.getState().router.url;
-     store.dispatch(actions.rtrUrlChanged(url));
-     }*/
-
     window.onbeforeunload = function(e) {
         if (store.getState().router.preventNavigation && store.getState().router.preventNavigationMessage.length > 0){
             return store.getState().router.preventNavigationMessage
@@ -104,9 +93,6 @@ export function initUniversal (url,createStore,Layout){
 
 }
 
-/*    setTimeout(()=>{ //this is scheduled to fire after all sync actions finish, it cant be done from within the event
- store.dispatch(actions.syncActionsDone());
- },0);*/
 
 
 /*

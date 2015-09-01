@@ -43,22 +43,6 @@ function router (state = {},action= {}){
                 promiseDone:true
             };
 
-        case 'RTR_UNIVERSAL_RENDERED':
-            return {
-                ...state,
-                rendered:action.val
-            };
-
-        case 'RTR_UNIVERSAL_INC_ACTIONS':
-
-            var actions = state.actions || 0;
-            actions ++;
-
-            return {
-                ...state,
-                actions:actions
-            };
-
         case 'RTR_UNIVERSAL_SYNC_ACTIONS_DONE':
             return {
                 ...state,
