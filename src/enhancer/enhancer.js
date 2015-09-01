@@ -1,0 +1,62 @@
+import {init,initUniversal} from '../redux-tiny-router/redux-tiny-router.js';
+import {middleware as tinyMiddleware} from '../middleware/middleware.js';
+import {universal as tinyUniversal} from '../middleware/universal.js';
+import {router as tinyReducer} from '../reducer/reducer.js';
+import {combineReducers} from 'redux';
+function compose(...funcs) {
+    return funcs.reduceRight((composed, f) => f(composed));
+}
+
+function is_server() {
+    return ! (typeof window != 'undefined' && window.document);
+}
+
+export function applyMiddleware(...middlewares) {
+    return (next) => (reducer, initialState) => {
+
+       if (is_server()){
+           global.__CLIENT__ = false;
+           global.__UNIVERSAL__ = global.__UNIVERSAL__ || false;
+       } else {
+           window.__CLIENT__ = true;
+           window.__UNIVERSAL__ = window.__UNIVERSAL__ || false;
+       }
+
+
+        function reducerEnhancer (state,action){
+            let clientState = reducer(state,action);
+            tinyReducer.router(state,action);
+            return clientState;
+        }
+
+        var store = next(reducerEnhancer, initialState);
+
+        middlewares.push(tinyMiddleware);
+        if (__UNIVERSAL__ && !__CLIENT__){
+            middlewares.unshift(tinyUniversal);
+        }
+
+        var dispatch = store.dispatch;
+        var chain = [];
+
+        var middlewareAPI = {
+            getState: store.getState,
+            dispatch: (action) => dispatch(action)
+        };
+        chain = middlewares.map(middleware => middleware(middlewareAPI));
+        dispatch = compose(...chain, store.dispatch);
+
+        var result = {
+            ...store,
+            dispatch
+        };
+
+        if (__CLIENT__){
+            init(result);
+       }
+
+        return result;
+
+
+    };
+}

@@ -6,9 +6,8 @@ import React from 'react';
 var skipevent = false;
 export function init (store) {
 
-
+    console.log('init called!');
     window.__UNIVERSAL__ = __UNIVERSAL__ || false;
-    window.__CLIENT__ = true;
 
 
     var url = __UNIVERSAL__ ? store.getState().router.url : window.location.pathname + window.location.search;
@@ -62,7 +61,7 @@ export function initUniversal (url,createStore,Layout){
     return new Promise ((resolve,reject) =>{
 
         global.__CLIENT__ = false;
-
+        console.log('init universal starting...');
         var store = createStore({},'http://'+url),
             state = {},
             reRender = false,
@@ -70,61 +69,86 @@ export function initUniversal (url,createStore,Layout){
             pending,
             html;
 
-        store.dispatch(actions.rtrUniversalSetPeniding(0));
 
-        var unsubscribe = store.subscribe(()=>{
+        let currentState = store.getState();
+        function observeStore(store,  onChange) {
+
+            console.log(store);
+
+            //    console.log('oberseve satarting');
+            function handleChange() {
+                //          console.log('handeling change');
+                let nextState = store.getState();
+                console.log(currentState);
+                console.log(nextState);
+
+                if (nextState !== currentState) {
+                    currentState = nextState;
+
+                    onChange(currentState);
+
+
+                }
+            }
+//keep fireing until done is set
+
+            let unsubscribe = store.subscribe(handleChange);
+            handleChange();
+            return unsubscribe;
+        }
+
+
+        store.dispatch(actions.rtrUniversalSetPeniding(0));
+        state = store.getState();
+
+        /*     var unsubscribe2 = observeStore(store,function(state2){
+         console.log('i live');
+         });*/
+
+
+        var unsubscribe = observeStore(store,(state)=>{
+            //  var unsubscribe = store.subscribe(()=>{
+            console.log('event FIRED!');
             state = store.getState();
-            var syncActionsDone = state.router.syncActionsDone;
+            //    console.log(state.router.router.pending);
+            //    console.log(state);
+            //      console.log(state.router.router);
             pending = state.router.pending;
+            //   console.log(state);
+
             if ((pending === 0) && (rendered)){
+
+                //   setTimeout(()=>{
                 unsubscribe();
                 store.dispatch(actions.rtrUniversalPromiseDone());
+
+
                 if (reRender){
+                    console.log('re - rendering (yes)');
                     html = React.renderToString(<Layout store={store}/>);
                 }
+                console.log('resolving promise');
                 resolve({html,state});
+                //   },1000);
+
             }
 
-            if ((pending ===0) && (!rendered)){
-                if (syncActionsDone){
-                    html = React.renderToString(<Layout store={store}/>);
-                    rendered = true;
-                    store.dispatch(actions.syncActionsPending());
-                }
+
+            if ((pending === 0) && (!rendered)){
+                console.log('rendering...');
+                html = React.renderToString(<Layout store={store}/>);
+                rendered = true;
             }
             if ((rendered) && (pending > 0)){
+
                 reRender = true;
             }
+
         });
 
         store.dispatch(actions.rtrUrlChanged(url.substring(url.indexOf('/'))));
-        store.dispatch(actions.syncActionsDone());
-
+        //  store.dispatch(actions.rtrChangeUrl(url.substring(url.indexOf('/'))));
     });
 
 }
 
-/*    setTimeout(()=>{ //this is scheduled to fire after all sync actions finish, it cant be done from within the event
- store.dispatch(actions.syncActionsDone());
- },0);*/
-
-
-/*
-
-function observeStore(store,  onChange) {
-    var currentState = store.getState();
-    var actionCount = currentState.router.actions;
-
-    function handleChange() {
-        let nextState = store.getState();
-        if (nextState !== currentState) {
-            currentState = nextState;
-            onChange(currentState);
-        }
-    }
-    let unsubscribe = store.subscribe(handleChange);
-    handleChange();
-    return unsubscribe;
-}
-var unsubscribe = observeStore(store,(state)=>{
-*/

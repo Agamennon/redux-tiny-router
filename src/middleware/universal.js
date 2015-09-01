@@ -25,10 +25,20 @@ export function universal ({ dispatch, getState }) {
 
     return (next) => {
         return (action) => {
+
+/*
+
+            if (action.type !== 'RTR_UNIVERSAL_INC_ACTIONS'){
+                console.log('inc for '+action.type);
+                dispatch(actions.rtrUniversalIncActions());
+            }*/
+
             var promiseDone = getState().router.promiseDone;
             if (promiseDone === true){ //if the universal router - re-rendered, be done! (stop calls to apis etc...)
                 return
             }
+
+
 
             if (isPromise(action)) {
                 keep(action, dispatch, getState);
@@ -39,7 +49,13 @@ export function universal ({ dispatch, getState }) {
                     }
                 }
             }
-            return next(action);
+           return  next(action);
+
+
+
+
+           // return
+
         }
     }
 

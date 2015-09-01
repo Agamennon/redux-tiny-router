@@ -17,7 +17,9 @@ export function middleware ({ dispatch, getState }) {
     return (next) => {
         return (action) => {
 
-            //the main action concerning the user
+
+      //    console.log('middleware action = '+action.type);
+                 //the main action concerning the user
             if (action.type === 'RTR_ROUTER_NAVIGATION'){
                 changeBrowserURL(action);
                 return  next(action)

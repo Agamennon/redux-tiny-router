@@ -14,17 +14,26 @@ function toPattern (path,params){
 }
 
 function urlToRouter (url){
+    var paths = url.split('/');
+    paths = paths.splice(1,paths.length);
+    paths[paths.length-1] = paths[paths.length-1].split('?')[0];
+    var subPath = paths[paths.length-2];
+    var lastPath = paths[paths.length-1].split('?')[0];
     var path = url.split('?')[0];
     if ((path.charAt(path.length-1) === '/') && (path.length > 1)){
         path = path.substr(0,path.length-1);  //remove ultimo caracter (o / )
     }
     var params = qs.parse(url.split('?')[1] || '') ;
+
     if (params.debug_session){
         delete params.debug_session
     }
     var router = {
         url,
         path,
+        paths,
+        subPath,
+        lastPath,
         params
     };
 

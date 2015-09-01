@@ -8,7 +8,6 @@ var reactExternal = {
     amd: 'react'
 };
 
-/*
 
 var reduxExternal = {
     root: 'redux',
@@ -16,7 +15,6 @@ var reduxExternal = {
     commonjs: 'redux',
     amd: 'redux'
 };
-*/
 
 
 var queryStringExternal = {
@@ -39,7 +37,7 @@ module.exports = {
     },
     externals: {
         'react': reactExternal,
-  //      'redux': reduxExternal,
+        'redux': reduxExternal,
         'query-string':queryStringExternal
     },
   //  target:'node',
