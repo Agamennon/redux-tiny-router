@@ -244,9 +244,11 @@ those could return true, a router obj, a perhaps a function you defined or some 
 
 you could use it like this:
 
+```javascript
 if (utils.get('/abc')){
   return <SomeComponent>
 }
+```
 
 ### Universal Apps
 
@@ -258,7 +260,7 @@ router will wait and re-render server side if on the first render some state cha
 
 This example use a ejs template as its quite elegant for this, or you could just use a react component 
   
-```
+```javascript
 import createStore from '../your/path/create-store.js'; //(this should return a function that creates a store) 
 import {reduxTinyRouter} from 'redux-tiny-router';
 import Component from '../shared/components/Layout.jsx';
@@ -292,7 +294,7 @@ The ejs template:
 
 And on the client:
 
-```
+```javascript
 
 import React from 'react';
 import Layout  from '../shared/components/Layout.jsx'; //your react app
@@ -336,7 +338,7 @@ that returns the store  that you can import for convenience and if you plan on d
 
 Now you only have to call the init function with the store before you render your app:
 
-```es6
+```javascript
 import { reduxTinyRouter } from 'redux-tiny-router';
 
  reduxTinyRouter.init(store);
