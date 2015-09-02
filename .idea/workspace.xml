@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d13b1df6-fb60-408e-bd8e-6e258a283fed" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <ignored path="fossnote.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -120,8 +119,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.8421052">
-              <caret line="241" column="0" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.18330309">
+              <caret line="227" column="19" selection-start-line="227" selection-start-column="19" selection-end-line="227" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -754,7 +753,13 @@
       <option name="project" value="LOCAL" />
       <updated>1441229242754</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="alpha release feedback">
+      <created>1441230165679</created>
+      <option name="number" value="00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1441230165679</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1243,8 +1248,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.8421052">
-          <caret line="241" column="0" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.18330309">
+          <caret line="227" column="19" selection-start-line="227" selection-start-column="19" selection-end-line="227" selection-end-column="19" />
           <folding />
         </state>
       </provider>
