@@ -200,32 +200,46 @@ and do nested routing on a react app, this is done in the [react-redux-tiny](htt
 ### the utils
 the same utils the router uses you can use it too
 import {utils} from 'react-tiny-router';
-the ones are 
-```utils.urlToRouter('/some/cool/url?param=10&param2=nice')```
-this one returns a router obj just like the one above
-``` utils.toQueryString ```
-takes a path and a search object ex:
-``` utils.toQueryString('/some/cool/url',{param:10,param2:'nice') ``` it will spill the url used above
+the ones are:
+ 
+```
+utils.urlToRouter('/some/cool/url?param=10&param2=nice')
+```
 
-there are plans to extend utils to have functions similar to a traditional router
+this one returns a router obj just like the one above
+
+```
+ utils.toQueryString 
+```
+
+takes a path and a search object ex:
+
+```
+ utils.toQueryString('/some/cool/url',{param:10,param2:'nice') //it will spill the url used above
+``` 
+
+There are plans to extend utils to have functions similar to a traditional router
 but more on the style of this router, my plan is to make it receive routes definitions and have them validated
 so you could use this util on your middleware or your react app to aid in creating your routes.  
  
- ex: (prototype phase please give feedback)
+### ex: (prototype phase please give feedback)
 
 ```
 utils.set('/abc')  
 utils.set('/test/:foo/')
 utils.set('/other/*',this.gui2);
 ```
+
 those could also have a attached function, but i am not sure if that is usefull like utils.set('/abc',fn);  
 
 then you could use it like this:
+
 ```
 utils.get('/abc'); 
 utils.get('/tes/some'); 
 utils.get('/other/path/customer)
 ```
+
 those could return true, a router obj, a perhaps a function you defined or some other winner idea you have.
 
 you could use it like this:
