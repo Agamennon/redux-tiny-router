@@ -170,8 +170,8 @@ and some comparison with that state for you to react
 that could be to render some part of ui or to fetch some data.
 
  
-### Universal Apps, what you get in the router obj?
-for this url /some/cool/url?param=10&param2=nice
+### What you get in the router obj?
+for this url ```/some/cool/url?param=10&param2=nice```
 
 this:
 ```json
