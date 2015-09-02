@@ -69,13 +69,17 @@ export function initUniversal (url,createStore,Layout){
                 unsubscribe();
                 store.dispatch(actions.rtrUniversalPromiseDone());
                 if (reRender){
+
                     html = React.renderToString(<Layout store={store}/>);
                 }
+                delete state.router.pending;
+                delete state.router.syncActionsDone;
                 resolve({html,state});
             }
 
             if ((pending ===0) && (!rendered)){
                 if (syncActionsDone){
+
                     html = React.renderToString(<Layout store={store}/>);
                     rendered = true;
                     store.dispatch(actions.syncActionsPending());

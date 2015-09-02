@@ -1,0 +1,3 @@
+New store enhancer
+Router obj has more properties, (paths, subpath)
+new server side resolution

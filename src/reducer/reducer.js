@@ -17,13 +17,18 @@ function router (state = {},action= {}){
             };
 
         case 'RTR_ALLOW_NAVIGATION':
+
+            delete state.attemptedOnPrevent;
             return {
                 ...state,
                 preventNavigation:false
+
             };
 
         case 'RTR_ROUTER_NAVIGATION':
+
             var routerObj = action.router;
+
             return {
                 ...state,
                 ...routerObj
@@ -59,7 +64,8 @@ function router (state = {},action= {}){
         default:
 
             return {
-                ...state}
+                ...state
+            }
     }
 
 }

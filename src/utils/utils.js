@@ -15,8 +15,11 @@ function toPattern (path,params){
 
 function urlToRouter (url){
     var paths = url.split('/');
+
+    //paths[0] =  '/';
     paths = paths.splice(1,paths.length);
     paths[paths.length-1] = paths[paths.length-1].split('?')[0];
+    paths[0] = paths[0] || '/';
     var subPath = paths[paths.length-2];
     var lastPath = paths[paths.length-1].split('?')[0];
     var path = url.split('?')[0];

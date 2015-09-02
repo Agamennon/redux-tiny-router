@@ -33,8 +33,8 @@ export function rtrUrlChanged(url,fromPopEvent){
 
 
 export function rtrChangeUrl(url,fromPopEvent){
-
     var router = utils.urlToRouter(url);
+
     return {
         type:'RTR_ROUTER_NAVIGATION',
         router,
@@ -60,6 +60,7 @@ export function rtrAllowNavigation(){
 }
 
 export function rtrPreventedNavigationAttempted(url){
+
     return {
         type:'RTR_PREVENTED_NAVIGATION_ATTEMPTED',
         url
@@ -72,17 +73,22 @@ export function rtrDoPreventedNavigation(){
         type:'RTR_ACTION',
         work:(dispatch,getState)=>{
             var url = getState().router.attemptedOnPrevent;
-            dispatch(rtrAllowNavigation());
-            if (url === '_back'){
-                history.back();
-                return
-            }
-            if (url === '_forward'){
-                history.forward();
-                return
+            if (url){
+                dispatch(rtrAllowNavigation());
+                if (url === '_back'){
+                    history.back();
+                    return
+                }
+                if (url === '_forward'){
+                    history.forward();
+                    return
+                }
+
+                dispatch(rtrChangeUrl(url));
+            } else {
+                console.warn('user have not attempted navegating under prevent!');
             }
 
-            dispatch(rtrChangeUrl(url))
         }
 
     };

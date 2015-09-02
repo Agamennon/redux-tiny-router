@@ -48,8 +48,8 @@ module.exports = {
         loaders: [
             {
                 test: /\.jsx?$/,
-                loader:'babel?stage=0',
-             //   loader:'babel?optional[]=runtime&stage=0',
+              //  loader:'babel?stage=0',
+               loader:'babel?optional[]=runtime&stage=0',
          //       loader:'babel?optional[]=runtime&stage=0',
                 include:[path.resolve('src')],
                 exclude: /node_modules/
