@@ -185,6 +185,7 @@ lets look of how to use this in a react app (nesting routes):
 Consider the url `/foo/some/more` 
 
 ```javascript
+
 //before...
 utils.setRoutes([
     '/',
@@ -208,6 +209,7 @@ const Comp = React.createClass({
 });
 
 ```
+
 Foo  could be:
 
 ```javascript
