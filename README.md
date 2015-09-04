@@ -86,9 +86,9 @@ with a router object that represent all the nuances of the url automatically
 
 ##### What do i get in this router object?
 
-for an url like /some/cool/path?name=gui
+for an url like `some/cool/path?name=gui`
 
-```
+```javascript
 
  "router": {
       "url": "/some/cool/path?name=gui",
@@ -126,7 +126,7 @@ lets take a look:
 
 First bring into your project the router utils, naturally configure your routes before you need'em
 
-```
+```javascript
 
 import {utils} from 'redux-tiny-router';
 
@@ -145,7 +145,7 @@ extra information that you need.**
 
 What is a splat? well its the wild-card *, lest add another route definition.   
   
-```
+```javascript
 
 //this will map to /test/<anything> but "/">/<anything> ... 
 utils.set('/foo/:test/*')    
@@ -159,7 +159,7 @@ and splat `/long/stuff` (splat is anything that came after the `*`)
  
 For convenience you can use `utils.setRoutes` pass an array of definitions to set them all with one call:
 
-```
+```javascript
 
 utils.setRoutes([
   '/foo/:test/',
@@ -178,8 +178,9 @@ could match both route definitions, but `src` will be set to `/foo/:test/` as it
 I told you that `src` is useful, well any pace of state from router can be useful but `src` is specially cool
 lets look of how to use this in a react app (nesting routes):
  
-Consider the url /foo/some/more 
-```
+Consider the url `/foo/some/more` 
+
+```javascript
 //before...
 utils.setRoutes([
     '/',
@@ -205,7 +206,7 @@ const Comp = React.createClass({
 ```
 Foo  could be:
 
-```
+```javascript
 
 const Foo = React.createClass({
   render() {
@@ -223,10 +224,10 @@ const Foo = React.createClass({
 ```
  
 That would render `</More>` Just remember that this example is somewhat arbitrary, in this case you don't even "need" to define routes, you could have used 
-router.paths[1] on Comp  and router.paths[2] on Foo, like so:
+`router.paths[1]` on Comp  and `router.paths[2]` on Foo, like so:
 
 
-```
+```javascript
 
 const Comp = React.createClass({
   render() {
@@ -242,7 +243,7 @@ const Comp = React.createClass({
   
 on Foo 
   
-```
+```javascript
 
 const Foo = React.createClass({
   render() {
@@ -256,13 +257,12 @@ const Foo = React.createClass({
 
 ``` 
 
-Remember route definitions only add more details, you can use any peace of state you need and any javascript knowledge you have to render your app
-but just to give you yet more power, to guarantee you can do anything i could think of, have a look at this puppy:
-`utils.match(definition,url)` this util will return a full router obj using a on the fly route definition, if the url match the definition
-you also get, `src` `splat` and `params`, so you could without adding previous route definitions make a one time check on `src` for even more flexibility,
-think about it, the first example i had to add another case for the more specific route (because i added it) is an artificial problem but will help to illustrate.
+Remember route definitions only add more details, you can use any peace of state you need and any javascript knowledge you have to render your app,
+but just to give you yet more power, to guarantee you can do anything i could think of, have a look at this puppy `utils.match(definition,url)`, this util will return a full router obj using a on the fly route definition, if the url match the definition
+you also get, `src` `splat` and `params`, so you could without adding previous route definitions make a one time check on `src` for even more flexibility.
+Think about it, in the first example i had to add another case for the more specific route (because i added it) is an artificial problem but will help to illustrate.
 
-```
+```javascript
   
 const Comp = React.createClass({
   render() {
@@ -279,10 +279,10 @@ const Comp = React.createClass({
 
   on Foo, we are not going to use `utils.match` instead we will use `utils.check`, match returns an 
   object with all those state things, you can use utils.check, it returns a boolean, if the only thing 
-  you need is to check if the url matches a definition (that is our case!)
+  you need is to check if the url matches a definition (that is our case on both components!)
   
  
-``` 
+```javascript
 
 const Foo = React.createClass({
   render() {
@@ -298,13 +298,13 @@ const Foo = React.createClass({
  
 ``` 
 
-##### Understanding how react-tiny-router works
+### Understanding how react-tiny-router works
  
 When the user enters a url on the browser, presses the back or forward buttons, or the navigateTo action creator is called,
 redux-tiny-router will dispatch an action:
 
  
-``` 
+```javascript
 { 
  type:ROUTER_NAVIGATION,
  router:router
@@ -312,13 +312,13 @@ redux-tiny-router will dispatch an action:
 }
 ```
 
-The router property already contains a populated router object, when this action reaches the router middleware, at the end of the middleware chain
+The router property already contains a populated router object, when this action reaches the router middleware, at the end of the middleware chain,
 it will read the action.router.url property and set the browser with that url, it will then reach the router reducer, that will make router part of the state. 
 It's quite simple really, but now that you know this, its easy to create a middleware to intercept this action.   
  
 inside you middleware..
  
-```
+```javascript
   var url = action.router.url;
   
   switch (){
@@ -343,35 +343,35 @@ have plenty of opportunity to interact.
 
 
 You could do your all your routing just by looking at the router or your "own" state, fetch data in the middleware or in your component,
-the router does not care... its just state! 
+the router does not care...
 
 
-### the utils
+### The utils
 the same utils the router uses you can use it too
 import {utils} from 'react-tiny-router';
 the ones are:
 
 Returns a router object:
  
-```
+```javascript
 utils.urlToRouter('/some/cool/url?param=10&param2=nice')
 ```
 
 Takes a path and a search object, returns a query string:
 
-```
+```javascript
  utils.toQueryString('/some/cool/url',{param:10,param2:'nice') //it will spill the url used above
 ``` 
 
 Set a route definition
 
-``` 
+```javascript
  utils.set('/*') 
 ```
  
 Sets a bunch of route definitions
 
-```
+```javascript
 utils.setRoutes([
 '/*',
 '/foo,
@@ -381,13 +381,13 @@ utils.setRoutes([
  
 Returns a router object, also sets this router object with route definitions if it matches
 
-```
+```javascript
 utils.match('/foo',url);
 ```
 
 Returns true if the url matches the definition false otherwise
 
-```
+```javascript
 utils.check('/foo',url);
 ```
 
