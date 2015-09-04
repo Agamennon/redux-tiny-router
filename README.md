@@ -79,6 +79,8 @@ const Comp = React.createClass({
   }
 });
 
+```
+
 The basic idea is this, no more controller components, its just state, the reducer in redux-tiny-router, will feed your state
 with a router object that represent all the nuances of the url automatically
 
@@ -87,6 +89,7 @@ with a router object that represent all the nuances of the url automatically
 for an url like /some/cool/path?name=gui
 
 ```
+
  "router": {
       "url": "/some/cool/path?name=gui",
       "src": null,
@@ -124,6 +127,7 @@ lets take a look:
 Some examples, first bring into your project the router utils, naturally configure your routes before you need'em
 
 ```
+
 import {utils} from 'redux-tiny-router';
 
 //this will configure a route (the second part of the path will be a parameter called test)
@@ -216,7 +220,7 @@ const Foo = React.createClass({
 
 ```
  
-That would render </More> Just remember that this example is somewhat arbitrary, in this case you don't even "need" to define routes, you could have used 
+That would render `</More>` Just remember that this example is somewhat arbitrary, in this case you don't even "need" to define routes, you could have used 
 router.paths[1] on Comp  and router.paths[2] on Foo, like so:
 
 
