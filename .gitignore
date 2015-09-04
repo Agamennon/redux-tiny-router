@@ -1,2 +1,5 @@
 node_modules
 ./.idea
+
+# for Mac OS X
+.DS_Store
