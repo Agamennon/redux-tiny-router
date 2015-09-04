@@ -1,8 +1,8 @@
 # Redux Tiny Router
 
-A Router made for Redux and made for universal apps! stop using the router as a controller... its just state!
+A Router made for Redux and made for universal apps! stop using the router as a controller... it's just state!
 
-Its simple, and its small  example app in [react-redux-tiny](https://github.com/Agamennon/react-redux-tiny) 
+It's simple, and it's small  example app in [react-redux-tiny](https://github.com/Agamennon/react-redux-tiny) 
 
 ### Using client side OPTION1 (store enhancer)
 
@@ -35,7 +35,7 @@ dispatch(routerActions.navigateTo('/somepath', {message:1}));
 ```
 
 The router will navigate to (/somepath?message=1) and set the router object with the info, for that it fires an action `type:'ROUTER_NAVIGATION'`
-that you can use to intercept the action on your middleware and do all sorts of interesting thinks, more later...
+that you can use to intercept the action on your middleware and do all sorts of interesting things, more later...
 
 Some more cool actions:
 
@@ -85,7 +85,7 @@ const Comp = React.createClass({
 
 ```
 
-The basic idea is this, no more controller components, its just state, the reducer in redux-tiny-router, will feed your state
+The basic idea is this, no more controller components, it's just state, the reducer in redux-tiny-router, will feed your state
 with a router object that represent all the nuances of the url automatically
 
 ### What do i get in this router object?
@@ -147,7 +147,7 @@ in this case `{test:cool}`, splat will be `null`. **The router does not care if 
 you just don't get values for `src` `params` and `splat`. Think about route definitions as teaching the router how to extract 
 extra information that you need.** 
 
-What is a splat? well its the wild-card *, lest add another route definition.   
+What is a splat? well it's the wild-card *, lest add another route definition.   
   
 ```javascript
 
@@ -176,7 +176,7 @@ utils.setRoutes([
 ```
 
 A more specific definition have precedence over a broad definition so `/foo/something` in the above definitions 
-could match both route definitions, but `src` will be set to `/foo/:test/` as its more specific. (the order of route definitions does not matter).   
+could match both route definitions, but `src` will be set to `/foo/:test/` as it's more specific. (the order of route definitions does not matter).   
  
  
 I told you that `src` is useful, well any pace of state from router can be useful but `src` is specially cool
@@ -320,7 +320,7 @@ redux-tiny-router will dispatch an action:
 
 The router property already contains a populated router object, when this action reaches the router middleware, at the end of the middleware chain,
 it will read the action.router.url property and set the browser with that url, it will then reach the router reducer, that will make router part of the state. 
-It's quite simple really, but now that you know this, its easy to create a middleware to intercept this action.   
+It's quite simple really, but now that you know this, it's easy to create a middleware to intercept this action.   
  
 inside you middleware..
  
@@ -344,7 +344,7 @@ to your own part of the state and point your app there if you want, dispatch act
 router state to fetch some data or whatever, you can even do redirects differently , by calling `utils.urlToRouter(url)` 
 it returns a new router object based on the url you feed it, now place that on action.router and send it forward `next(action)`
 and you are done, you could of course just dispatch a navigateTo action and not return next(action) as we did on the example above, 
-just showing how you can monkey around in your reducer, as this router works in a redux flow and its just state, you 
+just showing how you can monkey around in your reducer, as this router works in a redux flow and it's just state, you 
 have plenty of opportunity to interact.
 
 
@@ -407,7 +407,7 @@ even load data on componentWillMount on react applications, you also don't need 
 router will wait and re-render server side if on the first render, async actions where fired modifying the state,
 this makes the client receive the complete state of your app 
 
-This example use a ejs template as its quite elegant for this, or you could just use a react component 
+This example use a ejs template as it's quite elegant for this, or you could just use a react component 
   
 ```javascript
 import createStore from '../your/path/create-store.js'; //(this should return a function that creates a store) 
