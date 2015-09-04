@@ -121,10 +121,10 @@ back to your app.
 ##### Configuring routes, in case you need it
   
 redux-tiny-router internally uses a slightly modified version of a tiny route matching library called [http-hash](https://github.com/Matt-Esch/http-hash) 
-with that you can choose to define some routes, those definitions will populate the router object `src` `splat` and `params` properties
+with that you can choose to define some routes, those definitions will populate the router object `src` `splat` and `params` properties,
 lets take a look:
 
-Some examples, first bring into your project the router utils, naturally configure your routes before you need'em
+First bring into your project the router utils, naturally configure your routes before you need'em
 
 ```
 
@@ -136,11 +136,11 @@ utils.set('/foo/:test/')
 
 ```
 
-If for example you navigate to `/foo/cool`  the router now knows, since you configured a matching route, how to populate `src`,
+If you navigate to `/foo/cool`  the router now knows, since you configured a matching route, how to populate `src`,
 in this case it will be set to `/foo/:test/` src hold what pattern was matched with the url, this is quite useful 
 for your react app to decide what to render (examples later...) `params` will have the object containing the route params,
-in this case `{test:cool}`, splat will be `null`. The router does not care if the url matches the route, if it does not,
-you just don't get values for `src` `params` and `splat`. **Think about route definitions as teaching the router how to extract 
+in this case `{test:cool}`, splat will be `null`. **The router does not care if the url matches the route, if it does not,
+you just don't get values for `src` `params` and `splat`. Think about route definitions as teaching the router how to extract 
 extra information that you need.** 
 
 What is a splat? well its the wild-card *, lest add another route definition.   
@@ -171,8 +171,8 @@ utils.setRoutes([
 
 ```
 
-A more specific definition have precedence over a broad definition so `/foo/something` it could match both route definitions
-but `src` will be set to `/foo/:test/` as its more specific. (the order of route definitions does not matter).   
+A more specific definition have precedence over a broad definition so `/foo/something` in the above definitions 
+could match both route definitions, but `src` will be set to `/foo/:test/` as its more specific. (the order of route definitions does not matter).   
  
  
 I told you that `src` is useful, well any pace of state from router can be useful but `src` is specially cool
@@ -189,7 +189,7 @@ utils.setRoutes([
 
 const Comp = React.createClass({
   render() {
-    switch (this.props.router.src) { 
+    switch (this.props.router.src) {  //looking at src property
         case '/':
             return <Home/>;
         case '/foo/*': 
@@ -203,8 +203,10 @@ const Comp = React.createClass({
 });
 
 ```
+Foo  could be:
 
-//Foo  could be:
+```
+
 const Foo = React.createClass({
   render() {
     switch (this.props.router.splat) {  //notice SPLAT
