@@ -118,7 +118,7 @@ you specify some route configuration (more on this later) if your routes are not
 for those, `path` it's the url minus the query string  `?name=gui` in this example, `paths` is an array with all individual elements
 and `query` holds the query string turned into a object.
  
-You are free to use any of those to decide what component you will render in your app, so this brings the "controlling" 
+You are free to use any of those to decide what component you will render, so this brings the "controlling" 
 back to your app.
   
   
@@ -265,7 +265,7 @@ const Foo = React.createClass({
 
 Remember route definitions only add more details, you can use any peace of state you need and any javascript knowledge you have to render your app,
 but just to give you yet more power, to guarantee you can do anything i could think of, have a look at this puppy `utils.match(definition,url)`, this util will return a full router obj using a on the fly route definition, if the url match the definition
-you also get, `src` `splat` and `params`, so you could without adding previous route definitions make a one time check on `src` for even more flexibility.
+you also get, `src` `splat` and `params`, so you could without adding previous route definitions, make a one time check on `src` for even more flexibility.
 Think about it, in the first example i had to add another case for the more specific route (because i added it) is an artificial problem but will help to illustrate.
 
 ```javascript
@@ -342,7 +342,7 @@ inside you middleware..
 In there, is business as usual, you could naturally dispatch your own actions with part of the router state,
 to your own part of the state and point your app there if you want, dispatch actions based on some part of the
 router state to fetch some data or whatever, you can even do redirects differently , by calling `utils.urlToRouter(url)` 
-it returns a new router object based on the url you feed it, now place that on action.router and send it forward `next(action)`
+it returns a new router object based on the url you fed it, now place that on action.router and send it forward `next(action)`
 and you are done, you could of course just dispatch a navigateTo action and not return next(action) as we did on the example above, 
 just showing how you can monkey around in your reducer, as this router works in a redux flow and it's just state, you 
 have plenty of opportunity to interact.
