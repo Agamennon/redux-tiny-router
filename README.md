@@ -30,233 +30,370 @@ Yup, you call an action, first import the router actions:
 ```
 import {routerActions} from 'redux-tiny-router'
 //navigates to a route with optional search object
-routerActions.rtrNavigateTo('/somepath', {message:1});
+dispatch(routerActions.navigateTo('/somepath', {message:1}));
 ```
-The router will navigate to (/somepath?message=1) and set the router object with the info, for that it fires an action `type:'RTR_ROUTER_NAVIGATION'`
+The router will navigate to (/somepath?message=1) and set the router object with the info, for that it fires an action `type:'ROUTER_NAVIGATION'`
 that you can use to intercept the action on your middleware and do all sorts of interesting thinks, more later...
 
 Some more cool actions:
  ```
- rtrPreventNavigation(); //bonus! call this with a string and will prevent the user from navigating away from the page too!
+ preventNavigation(); //bonus! call this with a string and will prevent the user from navigating away from the page too!
  ```
-Does what it says, after you call this you lock navigation, useful if the user is on a form and you want to warn him about pending changes,
-if the user attempts to navigate, it fires and action `type:RTR_PREVENTED_NAVIGATION_ATTEMPTED` that will set a field in your router with
+Does what it says (it also blocks forward and back), after you call this you lock navigation, useful if the user is on a form and you want to warn him about pending changes,
+if the user attempts to navigate, it fires and action `type:PREVENTED_NAVIGATION_ATTEMPTED` that will set a field in your router with
 the attempted route, you actually don't need to worry about this, you can just check on your app if the value on the router.attemptedOnPrevent 
-is set to a value (this value is the attempted url) in this case you can show a popup warning the user of pending changes. But what if the users whats to navigate away?
+contains a value (this value is the attempted url) in this case you can show a pop-up warning the user of pending changes.
+But what if the users whats to navigate away?
 
  ```
-  rtrDoPreventedNavigation();
+  doPreventedNavigation();
  ```
 You call this action!, it will read the value from router.attemptedOnPrevent and navigate there! (it handles back and forward buttons just fine)
 
 ```
- rtrAllowNavigation();
+ allowNavigation();
 ```
 That just allows navigation again. if you want to handle the navigate after confirm implementation yourself.
  
  
-### How to?
- 
 ##### Basic routing
 
 You could just do this, inside your react app,
+
 ```
-@connect((state ) => {  //only get what you need, getting the whole thing for simplicity
+@connect((state ) => {  
     return {
-        state:state
-    }
+        router:state.router
+     }
 })
 const Comp = React.createClass({
   render() {
-    switch (this.props.state.router.path) {
-        case 'home':
+    switch (this.props.router.path) {
+        case '/':
             return <Home/>;
-        case 'messages':
-            return <Settings/>
+        case '/other':
+            return <Other/>
         default:
             return <NotFound/>;
     }
   }
 });
+
+The basic idea is this, no more controller components, its just state, the reducer in redux-tiny-router, will feed your state
+with a router object that represent all the nuances of the url automatically
+
+##### What do i get in this router object?
+
+for an url like /some/cool/path?name=gui
+
 ```
-If you want more flexibility you could do thinks a little diferent, inside your reducer you could listen to whatever action you like
-and dispatch that from your middleware 
+ "router": {
+      "url": "/some/cool/path?name=gui",
+      "src": null,
+      "splat": null,
+      "params": {},
+      "path": "/some/cool/path",
+      "paths": [
+        "/",
+        "some",
+        "cool",
+        "path"
+      ],
+      "query": {
+        "name": "gui"
+      }
+    }
+
+```
+
+The `url` property hold the exact url you see in the browser, `src`, `splat`, and `params` will only have a value if
+you specify some route configuration (more on this later) if your routes are not too complicated you will have no need 
+for those, `path` it's the url minus the query string  `?name=gui` in this example, `paths` is an array with all individual elements
+and `query` holds the query string turned into a object.
  
-```
-inside you reducer...
-
-switch (action.type) {
- 
-     case 'MY_ROUTER':
-            return {
-                ...state,
-                directory: action.router.path 
-            };
-            
-     case ....
-
-```
-and in your middleware you listen to the ```RTR_ROUTER_NAVIGATION``` action
-```
-  inside you middleware...
+You are free to use any of those to decide what component you will render in your app, so this brings the "controlling" 
+back to your app.
   
-      if (action.type === 'RTR_ROUTER_NAVIGATION'){
-             disptach({     //on your app please use an action creator ..
-                type:'MY_ROUTER'
-                directory:path
-             })      
-       }
-
-```
-Now on the app you look at your directory propery on the state, why is this more flexible?, where did the path came from? ... read on
   
-you typically do your routing inside your middleware or a react component, in this middleware example you will check for an action with type ```RTR_ROUTER_NAVIGATION```
-this action carries the router object with all the information parsed for you. ex:
+##### Configuring routes, in case you need it
+  
+redux-tiny-router internally uses a slightly modified version of a tiny route matching library called [http-hash](https://github.com/Matt-Esch/http-hash) 
+with that you can choose to define some routes, those definitions will populate the router object `src` `splat` and `params` properties
+lets take a look:
+
+Some examples, first bring into your project the router utils, naturally configure your routes before you need'em
 
 ```
-inside you middleware...
-
 import {utils} from 'redux-tiny-router';
 
+//this will configure a route (the second part of the path will be a parameter called test)
+//This matches /foo/<anything> but "/"  it will match /foo/somestuf but will not match /foo/somestuff/morestuff
+utils.set('/foo/:test/')
 
-if (action.type === 'RTR_ROUTER_NAVIGATION'){
-     var path = action.router.path;
-     
-     switch (path){
-        case '/secureplace':
-          // check if the user is logged in, if not
-          routerActions.rtrNavigateTo('/login'); //redirect him to login
-          return  //notice i am not returning next(action) this stops the RTR_ROUTER_ACTION as it not forwarded to the reduces, therefore navigation to /secureplace is halted
-          
-          // if the user is logged in just let it pass  
-          return next(action)
+```
 
-        case '/home': {
-            // do stuff for the home route if you want including fething or anything you like
-            return next(action) 
-        }
-        
-        case '/messages': {
-           path = path + '/' + action.router.search.param1; // now on your app you can expect a diferent path for this one   
-           you could for instance do this:
-           action.router = urlToRouter(path); //you just manipulated the hole router obj, urlToRouter takes a path and gives you a router obj
-           // or you could not do this last step and just use the re-written path on your own state, and look there for the path,
-           // do the routing inside a react component, in summary you decide how to route your app anyway you like its just state!
-           
-        }
-       
-       
-        default:
-            routerActions.rtrNavigateTo('/notfound'); //redirect to not found
+If for example you navigate to `/foo/cool`  the router now knows, since you configured a matching route, how to populate `src`,
+in this case it will be set to `/foo/:test/` src hold what pattern was matched with the url, this is quite useful 
+for your react app to decide what to render (examples later...) `params` will have the object containing the route params,
+in this case `{test:cool}`, splat will be `null`. The router does not care if the url matches the route, if it does not,
+you just don't get values for `src` `params` and `splat`. **Think about route definitions as teaching the router how to extract 
+extra information that you need.** 
+
+What is a splat? well its the wild-card *, lest add another route definition.   
+  
+```
+
+//this will map to /test/<anything> but "/">/<anything> ... 
+utils.set('/foo/:test/*')    
+
+
+```   
    
-        
-     }
-         //also save some info on your own state if you like 
-            disptach({  
-                  type:'MY_ROUTER'
-                  directory:path   // <-- notice that in the case of messages we have manipulated this string (hance flexibility)
-             })      
-     
-     return 
-              
+Let's trow `/foo/some/long/stuff` as a url, now `src` will be `/foo/:test/*` params `{test:some}`
+and splat `/long/stuff` (splat is anything that came after the `*`)   
+  
+ 
+For convenience you can use `utils.setRoutes` pass an array of definitions to set them all with one call:
+
+```
+
+utils.setRoutes([
+  '/foo/:test/',
+  '/foo/:test/*'
+  ...
+  ...
+  ...
+]);
+
+```
+
+A more specific definition have precedence over a broad definition so `/foo/something` it could match both route definitions
+but `src` will be set to `/foo/:test/` as its more specific. (the order of route definitions does not matter).   
+ 
+ 
+I told you that `src` is useful, well any pace of state from router can be useful but `src` is specially cool
+lets look of how to use this in a react app (nesting routes):
+ 
+Consider the url /foo/some/more 
+```
+//before...
+utils.setRoutes([
+    '/',
+    '/foo/*',
+    '/foo/some
+]);
+
+const Comp = React.createClass({
+  render() {
+    switch (this.props.router.src) { 
+        case '/':
+            return <Home/>;
+        case '/foo/*': 
+            return <Foo/>
+        case '/foo/some':  //this have to be here as a more specific route like /foo/some  would be matched here (src would = '/foo/some') 
+             return <Foo/> 
+        default:
+            return <NotFound/>;
+    }
+  }
+});
+
+```
+
+//Foo  could be:
+const Foo = React.createClass({
+  render() {
+    switch (this.props.router.splat) {  //notice SPLAT
+        case '/some':
+            return <Some/>
+        case '/some/more'
+            return <More/>
+        default:
+            return <NotFound/>;
+    }
+  }
+});
+
+```
+ 
+That would render </More> Just remember that this example is somewhat arbitrary, in this case you don't even "need" to define routes, you could have used 
+router.paths[1] on Comp  and router.paths[2] on Foo, like so:
+
+
+```
+
+const Comp = React.createClass({
+  render() {
+    var paths =  this.props.router.paths;
+    if (paths[0] === '/') return <Home/>
+    if (paths[1] === '/foo) return <Foo/>
+    return <NotFound/>
+  }
+});
+
+
+```
+  
+on Foo 
+  
+```
+
+const Foo = React.createClass({
+  render() {
+    var paths =  this.props.router.paths;
+    if (paths[3] === 'some') return <Some/>
+    if (paths[4] === 'more') return <More/>
+    return <NotFound/>
+  }
+});
+
+
+``` 
+
+Remember route definitions only add more details, you can use any peace of state you need and any javascript knowledge you have to render your app
+but just to give you yet more power, to guarantee you can do anything i could think of, have a look at this puppy:
+`utils.match(definition,url)` this util will return a full router obj using a on the fly route definition, if the url match the definition
+you also get, `src` `splat` and `params`, so you could without adding previous route definitions make a one time check on `src` for even more flexibility,
+think about it, the first example i had to add another case for the more specific route (because i added it) is an artificial problem but will help to illustrate.
+
+```
+  
+const Comp = React.createClass({
+  render() {
+    const url =  this.props.router.url;
+    const match = utils.match;
+    if (match('/',url).src) return <Home/>  //.src have a value with the url matches the definition
+    if (match('/foo/*',url).src) return <Foo/> 
+    return <NotFound/>
+  }
+});
+
+
+```
+
+  on Foo, we are not going to use `utils.match` instead we will use `utils.check`, match returns an 
+  object with all those state things, you can use utils.check, it returns a boolean, if the only thing 
+  you need is to check if the url matches a definition (that is our case!)
+  
+ 
+``` 
+
+const Foo = React.createClass({
+  render() {
+    const url =  this.props.router.url;
+    const check = utils.check;
+    if (check('/some',url)) return <Foo/>
+    if (check('foo/some/more/stuff/*',url)) return <Stuff/>
+    if (check('/some/more',url)) return <Home/>
+    return <NotFound/>
+  }
+});
+
+ 
+``` 
+
+##### Understanding how react-tiny-router works
+ 
+When the user enters a url on the browser, presses the back or forward buttons, or the navigateTo action creator is called,
+redux-tiny-router will dispatch an action:
+
+ 
+``` 
+{ 
+ type:ROUTER_NAVIGATION,
+ router:router
+ ...
 }
 ```
 
-You could do your all your routing just by looking at the router.path and router.search and other fields that you create on the router object on your own state,
-mix and match that with your stuff, just use your stuff, its up to you.
-
-The idea here is, the "router" if you think about it its just some state (that comes from url)
-and some comparison with that state for you to react 
-that could be to render some part of ui or to fetch some data.
-
+The router property already contains a populated router object, when this action reaches the router middleware, at the end of the middleware chain
+it will read the action.router.url property and set the browser with that url, it will then reach the router reducer, that will make router part of the state. 
+It's quite simple really, but now that you know this, its easy to create a middleware to intercept this action.   
  
-### What you get in the router obj?
-for this url ```/some/cool/url?param=10&param2=nice```
-
-this:
-```json
-"router": {
-      "url": "/some/cool/url?param=10&param2=nice",
-      "path": "/some/cool/url",
-      "paths": [
-        "some",
-        "cool",
-        "url"
-      ],
-      "subPath": "cool",
-      "lastPath": "url",
-      "params": {
-        "param": "10",
-        "param2": "nice"
-      },
-      "pattern": "/some/cool/url?param&param2"
-    }
+inside you middleware..
+ 
 ```
-there is possibly router.attemptedOnPrevent (with the url of a prevented navigation) in case that happend 
+  var url = action.router.url;
+  
+  switch (){
+  case 'ROUTER_NAVIGATION':
+      const isSecurePlace = utils.check('/secure/*',url);
+      const loggedIn = getState().user
+      if (isSecurePlace && !loggedIn){
+         dispatch(routerActions.navigateTo('/login'));  //navigate to /login
+         return   // this will stop further ROUTER_NAVIGATION processing, the action it will never reach the router middleware or the reducer
+      }
+      return next(action)
+  }
+``` 
+ 
+In there, is business as usual, you could naturally dispatch your own actions with part of the router state,
+to your own part of the state and point your app there if you want, dispatch actions based on some part of the
+router state to fetch some data or whatever, you can even do redirects differently , by calling `utils.urlToRouter(url)` 
+it returns a new router object based on the url you feed it, now place that on action.router and send it forward `next(action)`
+and you are done, you could of course just dispatch a navigateTo action and not return next(action) as we did on the example above, 
+just showing how you can monkey around in your reducer, as this router works in a redux flow and its just state, you 
+have plenty of opportunity to interact.
 
-you can use any pace of state you like, for instance you could look at paths[0] for the first level and paths[1] for the second
-and do nested routing on a react app, this is done in the [react-redux-tiny](https://github.com/Agamennon/react-redux-tiny)  universal starter.
+
+You could do your all your routing just by looking at the router or your "own" state, fetch data in the middleware or in your component,
+the router does not care... its just state! 
+
 
 ### the utils
 the same utils the router uses you can use it too
 import {utils} from 'react-tiny-router';
 the ones are:
+
+Returns a router object:
  
 ```
 utils.urlToRouter('/some/cool/url?param=10&param2=nice')
 ```
 
-this one returns a router obj just like the one above
-
-```
- utils.toQueryString 
-```
-
-takes a path and a search object ex:
+Takes a path and a search object, returns a query string:
 
 ```
  utils.toQueryString('/some/cool/url',{param:10,param2:'nice') //it will spill the url used above
 ``` 
 
-There are plans to extend utils to have functions similar to a traditional router
-but more on the style of this router, my plan is to make it receive routes definitions and have them validated
-so you could use this util on your middleware or your react app to aid in creating your routes.  
+Set a route definition
+
+``` 
+ utils.set('/*') 
+```
  
-### ex: (prototype phase please give feedback)
+Sets a bunch of route definitions
 
 ```
-utils.set('/abc')  
-utils.set('/test/:foo/')
-utils.set('/other/*',this.gui2);
-```
-
-those could also have a attached function, but i am not sure if that is usefull like utils.set('/abc',fn);  
-
-then you could use it like this:
+utils.setRoutes([
+'/*',
+'/foo,
+]),
 
 ```
-utils.get('/abc'); 
-utils.get('/tes/some'); 
-utils.get('/other/path/customer)
+ 
+Returns a router object, also sets this router object with route definitions if it matches
+
+```
+utils.match('/foo',url);
 ```
 
-those could return true, a router obj, a perhaps a function you defined or some other winner idea you have.
+Returns true if the url matches the definition false otherwise
 
-you could use it like this:
-
-```javascript
-if (utils.get('/abc')){
-  return <SomeComponent>
-}
 ```
+utils.check('/foo',url);
+```
+
 
 ### Universal Apps
 
 redux-tiny-router has a initUniversal function, that returns a promise, this promise resolves with data.html (with the rendered app)
 and data.state with your state, now just send those in and presto, redux-tiny-router handles async on react just fine as long as all 
-async operations is done using actions , and that those actions ether return a promise or have an attribute that is a promise, you can 
-even load data on componentWillMount on react applications, you also dont need to wait or synchronize any async operations, as the 
-router will wait and re-render server side if on the first render some state change can occur, this makes the client receive the complete state of your app 
+async operations are done using actions , and that those actions ether return a promise or have an attribute that is a promise, you can 
+even load data on componentWillMount on react applications, you also don't need to wait or synchronize any async operations, as the 
+router will wait and re-render server side if on the first render, async actions where fired modifying the state,
+this makes the client receive the complete state of your app 
 
 This example use a ejs template as its quite elegant for this, or you could just use a react component 
   
@@ -312,7 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
 And it works, the example universal app  [react-redux-tiny](https://github.com/Agamennon/react-redux-tiny)  can show you more! 
 
 
-### Using client side OPTION2 (bing stuff by hand) if OPTION1 does not have issues this will be deprecated
+### Using client side OPTION2 (bring stuff by hand) if OPTION1 is robbing you of applyMiddleware form a third party or you combine your reducers in a fancy way
 
 Create your store with the redux-tiny-router middleware and reducer
 
@@ -322,16 +459,10 @@ import { middleware as reduxTinyRouterMiddleware, reducer as reduxTinyRouterRedu
 import * as yourReducers from './reducers'
 
   var reducer  = combineReducers(Object.assign({},reduxTinyRouterReducer,yourReducers));
-  // reduxTinyRouterMiddleware needs to come after your middleware if you want to enable thinkgs like stoping routes on your middleware
+  // reduxTinyRouterMiddleware needs to come after your middleware if you want to enable things like stopping routes on your middleware
   var finalCreateStore = applyMiddleware(appMiddleware,reduxTinyRouterMiddleware)(createStore); 
   store = finalCreateStore(reducer,{});
 ```
-
-Standard stuff, for now you just added a middleware and a reducer from redux-tiny-router, you should turn this in to a function
-that returns the store  that you can import for convenience and if you plan on doing an Universal app 
-
-Now you only have to call the init function with the store before you render your app:
-
 
 Standard stuff, for now you just added a middleware and a reducer from redux-tiny-router, you should turn this in to a function
 that returns the store  that you can import for convenience and if you plan on doing an Universal app 
@@ -356,4 +487,3 @@ Inspired by cerebral reactive router
 ### License
 
 MIT
-

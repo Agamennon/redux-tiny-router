@@ -1,6 +1,6 @@
 {
   "name": "redux-tiny-router",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": {
     "name": "Guilherme Guerchmann",
     "email": "gui@guerch.net",
@@ -23,6 +23,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "http-hash": "^2.0.0",
     "query-string": "^2.4.0",
     "react": "^0.13.3",
     "redux": "^1.0.1"

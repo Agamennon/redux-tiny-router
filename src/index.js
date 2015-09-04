@@ -9,6 +9,5 @@ export {applyMiddleware} from './enhancer/enhancer'
 export {router as reducer} from './reducer/reducer.js';
 export {Link} from './components/link.jsx';
 export {utils} from './utils/utils';
-//import * as utils from './utils/utils.js';
-//export {utils}
+
 

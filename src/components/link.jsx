@@ -8,7 +8,7 @@ export class Link extends React.Component {
 
     click(e){
          e.preventDefault();
-         this.context.store.dispatch(actions.rtrNavigateTo(this.props.path,this.props.search));
+         this.context.store.dispatch(actions.navigateTo(this.props.path,this.props.search));
     }
 
     render() {

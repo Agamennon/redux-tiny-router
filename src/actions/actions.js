@@ -3,28 +3,27 @@ import {utils} from '../utils/utils.js';
 
 
 // ****************************** NAVIGATION *****************************************
-export function rtrNavigateTo(path,params){
-
+export function navigateTo(path, params){
     var url = utils.toQueryString(path,params);
     return {
         type:'RTR_ACTION',
         work:(dispatch,getState)=>{
-            dispatch(rtrUrlChanged(url))
+            dispatch(urlChanged(url))
         }
 
     };
 }
 
-export function rtrUrlChanged(url,fromPopEvent){
+export function urlChanged(url, fromPopEvent){
 
     return {
         type:'RTR_ACTION',
         work:(dispatch,getState)=>{
             var prevent = getState().router.preventNavigation;
             if (prevent === true){
-                dispatch(rtrPreventedNavigationAttempted(url));
+                dispatch(preventedNavigationAttempted(url));
             } else {
-                dispatch(rtrChangeUrl(url,fromPopEvent));
+                dispatch(changeUrl(url,fromPopEvent));
             }
         }
 
@@ -32,11 +31,10 @@ export function rtrUrlChanged(url,fromPopEvent){
 }
 
 
-export function rtrChangeUrl(url,fromPopEvent){
+export function changeUrl(url, fromPopEvent){
     var router = utils.urlToRouter(url);
-
     return {
-        type:'RTR_ROUTER_NAVIGATION',
+        type:'ROUTER_NAVIGATION',
         router,
         fromPopEvent
     };
@@ -46,35 +44,35 @@ export function rtrChangeUrl(url,fromPopEvent){
 
 
 //  ************************* NAVIGATION PREVENTION *************************************
-export function rtrPreventNavigation(message){
+export function preventNavigation(message){
     return {
-        type:'RTR_PREVENT_NAVIGATION',
+        type:'PREVENT_NAVIGATION',
         message
     }
 }
 
-export function rtrAllowNavigation(){
+export function allowNavigation(){
     return {
-        type:'RTR_ALLOW_NAVIGATION'
+        type:'ALLOW_NAVIGATION'
     }
 }
 
-export function rtrPreventedNavigationAttempted(url){
+export function preventedNavigationAttempted(url){
 
     return {
-        type:'RTR_PREVENTED_NAVIGATION_ATTEMPTED',
+        type:'PREVENTED_NAVIGATION_ATTEMPTED',
         url
     }
 }
 
-export function rtrDoPreventedNavigation(){
+export function doPreventedNavigation(){
 
     return {
         type:'RTR_ACTION',
         work:(dispatch,getState)=>{
             var url = getState().router.attemptedOnPrevent;
             if (url){
-                dispatch(rtrAllowNavigation());
+                dispatch(allowNavigation());
                 if (url === '_back'){
                     history.back();
                     return
@@ -84,7 +82,7 @@ export function rtrDoPreventedNavigation(){
                     return
                 }
 
-                dispatch(rtrChangeUrl(url));
+                dispatch(changeUrl(url));
             } else {
                 console.warn('user have not attempted navegating under prevent!');
             }
@@ -97,17 +95,17 @@ export function rtrDoPreventedNavigation(){
 
 
 //  ************************* UNIVERSAL HELPERS *************************************
-export function rtrUniversalSetPeniding(val,done){
+export function universalSetPeniding(val, done){
     return {
-        type:'RTR_UNIVERSAL_SET_PENDING',
+        type:'UNIVERSAL_SET_PENDING',
         val,
         done
     }
 }
 
-export function rtrUniversalPromiseDone(){
+export function universalPromiseDone(){
     return {
-        type:'RTR_UNIVERSAL_PROMISE_DONE'
+        type:'UNIVERSAL_PROMISE_DONE'
     }
 }
 
@@ -115,13 +113,13 @@ export function rtrUniversalPromiseDone(){
 export function syncActionsDone(){
 
     return {
-        type:'RTR_UNIVERSAL_SYNC_ACTIONS_DONE'
+        type:'UNIVERSAL_SYNC_ACTIONS_DONE'
     }
 }
 
 export function syncActionsPending(){
     return {
-        type:'RTR_UNIVERSAL_SYNC_ACTIONS_PENDING'
+        type:'UNIVERSAL_SYNC_ACTIONS_PENDING'
     }
 }
 

@@ -18,12 +18,12 @@ export function middleware ({ dispatch, getState }) {
         return (action) => {
 
             //the main action concerning the user
-            if (action.type === 'RTR_ROUTER_NAVIGATION'){
+            if (action.type === 'ROUTER_NAVIGATION'){
                 changeBrowserURL(action);
                 return  next(action)
 
             }
-            //special action "a special thunk just for the router"
+            //special thunk just for the router
             if (action.type === 'RTR_ACTION'){
                return action.work(dispatch,getState);
             }

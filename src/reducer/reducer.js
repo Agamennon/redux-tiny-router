@@ -3,20 +3,20 @@ function router (state = {},action= {}){
 
     switch (action.type) {
 
-        case 'RTR_PREVENT_NAVIGATION':
+        case 'PREVENT_NAVIGATION':
               return {
                     ...state,
                     preventNavigation:true,
                     preventNavigationMessage:action.message
                  };
 
-        case 'RTR_PREVENTED_NAVIGATION_ATTEMPTED':
+        case 'PREVENTED_NAVIGATION_ATTEMPTED':
             return {
                 ...state,
                 attemptedOnPrevent:action.url
             };
 
-        case 'RTR_ALLOW_NAVIGATION':
+        case 'ALLOW_NAVIGATION':
 
             delete state.attemptedOnPrevent;
             return {
@@ -25,7 +25,7 @@ function router (state = {},action= {}){
 
             };
 
-        case 'RTR_ROUTER_NAVIGATION':
+        case 'ROUTER_NAVIGATION':
 
             var routerObj = action.router;
 
@@ -35,26 +35,26 @@ function router (state = {},action= {}){
             };
 
 
-        case 'RTR_UNIVERSAL_SET_PENDING':
+        case 'UNIVERSAL_SET_PENDING':
             return {
                 ...state,
                 pending:action.val
             };
 
 
-        case 'RTR_UNIVERSAL_PROMISE_DONE':
+        case 'UNIVERSAL_PROMISE_DONE':
             return {
                 ...state,
                 promiseDone:true
             };
 
-        case 'RTR_UNIVERSAL_SYNC_ACTIONS_DONE':
+        case 'UNIVERSAL_SYNC_ACTIONS_DONE':
             return {
                 ...state,
                 syncActionsDone:true
             };
 
-        case 'RTR_UNIVERSAL_SYNC_ACTIONS_PENDING':
+        case 'UNIVERSAL_SYNC_ACTIONS_PENDING':
             return {
                 ...state,
                 syncActionsDone:false

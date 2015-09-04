@@ -25,13 +25,11 @@ export function applyMiddleware(...middlewares) {
 
 
         function reducerEnhancer (state,action){
-            //need to find a way to stick my reducer in here and allow client to call combineReducers
             Object.assign(reducer,tinyReducer,reducer);
             var res = combineReducers(reducer);
             return res(state,action);
 
         }
-
 
         var store = next(reducerEnhancer, initialState);
 
