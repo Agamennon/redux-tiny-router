@@ -17,12 +17,14 @@ var reduxExternal = {
 };
 
 
+/*
 var queryStringExternal = {
     root: 'query-string',
     commonjs2: 'query-string',
     commonjs: 'query-string',
     amd: 'query-string'
 };
+*/
 
 
 
@@ -37,8 +39,8 @@ module.exports = {
     },
     externals: {
         'react': reactExternal,
-        'redux': reduxExternal,
-        'query-string':queryStringExternal
+        'redux': reduxExternal
+   //     'query-string':queryStringExternal
     },
   //  target:'node',
 
