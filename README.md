@@ -60,7 +60,7 @@ You call this action!, it will read the value from router.attemptedOnPrevent and
 That just allows navigation again. if you want to handle the navigate after confirm implementation yourself.
  
  
-##### Basic routing
+### Basic routing
 
 You could just do this, inside your react app,
 
@@ -88,7 +88,7 @@ const Comp = React.createClass({
 The basic idea is this, no more controller components, its just state, the reducer in redux-tiny-router, will feed your state
 with a router object that represent all the nuances of the url automatically
 
-##### What do i get in this router object?
+### What do i get in this router object?
 
 for an url like `some/cool/path?name=gui`
 
@@ -122,7 +122,7 @@ You are free to use any of those to decide what component you will render in you
 back to your app.
   
   
-##### Configuring routes, in case you need it
+### Configuring routes, in case you need it
   
 redux-tiny-router internally uses a slightly modified version of a tiny route matching library called [http-hash](https://github.com/Matt-Esch/http-hash) 
 with that you can choose to define some routes, those definitions will populate the router object `src` `splat` and `params` properties,
