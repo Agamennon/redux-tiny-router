@@ -190,7 +190,7 @@ Consider the url `/foo/some/more`
 utils.setRoutes([
     '/',
     '/foo/*',
-    '/foo/some
+    '/foo/some'
 ]);
 
 const Comp = React.createClass({
@@ -239,7 +239,7 @@ const Comp = React.createClass({
   render() {
     var paths =  this.props.router.paths;
     if (paths[0] === '/') return <Home/>
-    if (paths[1] === '/foo) return <Foo/>
+    if (paths[1] === '/foo') return <Foo/>
     return <NotFound/>
   }
 });
@@ -380,7 +380,7 @@ Sets a bunch of route definitions
 ```javascript
 utils.setRoutes([
 '/*',
-'/foo,
+'/foo',
 ]),
 
 ```
