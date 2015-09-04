@@ -27,30 +27,34 @@ but how to change the route inside the app?
  
 ### redux-tiny-router action creators
 Yup, you call an action, first import the router actions:
-```
+
+```javascript
 import {routerActions} from 'redux-tiny-router'
 //navigates to a route with optional search object
 dispatch(routerActions.navigateTo('/somepath', {message:1}));
 ```
+
 The router will navigate to (/somepath?message=1) and set the router object with the info, for that it fires an action `type:'ROUTER_NAVIGATION'`
 that you can use to intercept the action on your middleware and do all sorts of interesting thinks, more later...
 
 Some more cool actions:
- ```
+
+ ```javascript
  preventNavigation(); //bonus! call this with a string and will prevent the user from navigating away from the page too!
  ```
+ 
 Does what it says (it also blocks forward and back), after you call this you lock navigation, useful if the user is on a form and you want to warn him about pending changes,
 if the user attempts to navigate, it fires and action `type:PREVENTED_NAVIGATION_ATTEMPTED` that will set a field in your router with
 the attempted route, you actually don't need to worry about this, you can just check on your app if the value on the router.attemptedOnPrevent 
 contains a value (this value is the attempted url) in this case you can show a pop-up warning the user of pending changes.
 But what if the users whats to navigate away?
 
- ```
+ ```javascript
   doPreventedNavigation();
  ```
 You call this action!, it will read the value from router.attemptedOnPrevent and navigate there! (it handles back and forward buttons just fine)
 
-```
+```javascript
  allowNavigation();
 ```
 That just allows navigation again. if you want to handle the navigate after confirm implementation yourself.
@@ -60,7 +64,7 @@ That just allows navigation again. if you want to handle the navigate after conf
 
 You could just do this, inside your react app,
 
-```
+```javascript
 @connect((state ) => {  
     return {
         router:state.router
