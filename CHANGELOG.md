@@ -1,5 +1,10 @@
 ## Change log
 
+#### 0.4.2 - 2015/09/04
+router.previous now holds the previous url
+navigateTo now has optional boolean parameter for silent navigation
+fix utils.check  
+
 #### 0.4.0 - 2015/09/04
 Major changes, removed paths and subpath from router
 Introduced route definitions

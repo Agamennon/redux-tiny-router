@@ -3,18 +3,26 @@ import {utils} from '../utils/utils.js';
 
 
 // ****************************** NAVIGATION *****************************************
-export function navigateTo(path, params){
+export function navigateTo(path, params, silent){
+    if (typeof params === 'boolean'){
+        silent = params;
+        params = undefined;
+    }
+
     var url = utils.toQueryString(path,params);
     return {
         type:'RTR_ACTION',
         work:(dispatch,getState)=>{
-            dispatch(urlChanged(url))
+            const option = silent?'silent':'';
+            dispatch(urlChanged(url,option))
         }
 
     };
 }
 
-export function urlChanged(url, fromPopEvent){
+
+
+export function urlChanged(url, option){
 
     return {
         type:'RTR_ACTION',
@@ -23,7 +31,7 @@ export function urlChanged(url, fromPopEvent){
             if (prevent === true){
                 dispatch(preventedNavigationAttempted(url));
             } else {
-                dispatch(changeUrl(url,fromPopEvent));
+                dispatch(changeUrl(url,option));
             }
         }
 
@@ -31,12 +39,12 @@ export function urlChanged(url, fromPopEvent){
 }
 
 
-export function changeUrl(url, fromPopEvent){
+export function changeUrl(url, option){
     var router = utils.urlToRouter(url);
     return {
         type:'ROUTER_NAVIGATION',
         router,
-        fromPopEvent
+        option
     };
 }
 

@@ -322,21 +322,30 @@ The router property already contains a populated router object, when this action
 it will read the action.router.url property and set the browser with that url, it will then reach the router reducer, that will make router part of the state. 
 It's quite simple really, but now that you know this, it's easy to create a middleware to intercept this action.   
  
+let's make something cool here, if the user is going to a secure place in your app let's redirect him to /login 
+you can see the full implementation in [react-redux-tiny](https://github.com/Agamennon/react-redux-tiny) example app. 
+
 inside you middleware..
  
 ```javascript
-  var url = action.router.url;
-  
-  switch (){
-  case 'ROUTER_NAVIGATION':
-      const isSecurePlace = utils.check('/secure/*',url);
-      const loggedIn = getState().user
-      if (isSecurePlace && !loggedIn){
-         dispatch(routerActions.navigateTo('/login'));  //navigate to /login
-         return   // this will stop further ROUTER_NAVIGATION processing, the action it will never reach the router middleware or the reducer
-      }
-      return next(action)
-  }
+
+  if (action.type === 'ROUTER_NAVIGATION'){
+    const {url,path} = action.router;
+    const isSecurePlace = utils.check('/secure/*',url); 
+    const loggedIn = getState().data.user; //presume that the data part of your state will hold the user
+    if (path === '/login') //if user wants to login thats ok!
+       return next(action);
+    if (isSecurePlace && !loggedIn){
+       dispatch(routerActions.preventedNavigationAttempted(url)); //router will now store the attempted url (you can use this to send him where he wanted to go after auth)
+       dispatch(routerActions.navigateTo('/login'));  //navigate to /login
+       return;  // this will stop further ROUTER_NAVIGATION processing, the action it will never reach the router middleware or the reducer
+    }
+    return next(action);
+ }
+ 
+ //the rest of your middleware
+ ....
+ 
 ``` 
  
 In there, is business as usual, you could naturally dispatch your own actions with part of the router state,

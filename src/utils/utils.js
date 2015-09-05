@@ -34,7 +34,7 @@ function match(mapping,url) {
 }
 
 function check(mapping,url) {
-    return (_doMatching(mapping,url).src.length > 0);
+    return (_doMatching(mapping,url).src);
 }
 
 

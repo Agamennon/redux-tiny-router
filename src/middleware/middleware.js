@@ -5,10 +5,19 @@ import * as a from '../actions/actions.js';
 
 function changeBrowserURL(action){
     if (__CLIENT__) {
-        if (!action.fromPopEvent) { //pop event already poped the url
-            utils.navindex++;
-            history.pushState(utils.navindex, null, action.router.url);
+        const option = action.option;
+
+        switch (option) {
+            case ('silent'):
+                history.replaceState(utils.navindex, null, action.router.previous);
+                return;
+            case ('popEvent'): //pop event already poped the url
+                return;
+            default:
+                utils.navindex++;
+                history.pushState(utils.navindex, null, action.router.url);
         }
+
     }
 }
 

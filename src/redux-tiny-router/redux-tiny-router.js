@@ -29,14 +29,15 @@ export function init (store) {
         index = e.state || 0;
         navindex = utils.navindex;
         direction = (index < navindex) ? '_back':'_forward';
+        console.log(direction);
         url = window.location.pathname + window.location.search;
 
         if (store.getState().router.preventNavigation){ //if router is preventing navigation
             skipevent = true; //we prevent by doing the opposite the user did (and dont want to infinite loop)
             (index < navindex) ? history.forward() : history.back();
-            store.dispatch(actions.urlChanged(direction,true));
+            store.dispatch(actions.urlChanged(direction,'popEvent'));
         } else {
-            store.dispatch(actions.urlChanged(url,true)); //business as usual
+            store.dispatch(actions.urlChanged(url,'popEvent')); //business as usual
         }
         utils.navindex = index;
     }

@@ -27,7 +27,9 @@ function router (state = {},action= {}){
 
         case 'ROUTER_NAVIGATION':
 
+
             var routerObj = action.router;
+            state.previous = state.url;
 
             return {
                 ...state,
