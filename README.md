@@ -2,7 +2,7 @@
 
 A Router made for Redux and made for universal apps! stop using the router as a controller... it's just state!
 
-It's simple, and it's small  example app in [react-redux-tiny](https://github.com/Agamennon/react-redux-tiny) 
+It's simple, and it's small,  example app in [react-redux-tiny](https://github.com/Agamennon/react-redux-tiny) 
 
 ### Using client side OPTION1 (store enhancer)
 
@@ -341,9 +341,9 @@ inside you middleware..
  
 In there, is business as usual, you could naturally dispatch your own actions with part of the router state,
 to your own part of the state and point your app there if you want, dispatch actions based on some part of the
-router state to fetch some data or whatever, you can even do redirects differently , by calling `utils.urlToRouter(url)` 
-it returns a new router object based on the url you fed it, now place that on action.router and send it forward `next(action)`
-and you are done, you could of course just dispatch a navigateTo action and not return next(action) as we did on the example above, 
+router state to fetch some data, or whatever you need!. You can even do redirects differently, by calling `utils.urlToRouter(url)` you get 
+new router object based on the url you fed it, now place that on action.router (to replace it)  and send it forward `next(action)`
+and you are done. You could of course just dispatch a navigateTo action and not return next(action) as we did on the example above, 
 just showing how you can monkey around in your reducer, as this router works in a redux flow and it's just state, you 
 have plenty of opportunity to interact.
 
@@ -401,11 +401,11 @@ utils.check('/foo',url);
 ### Universal Apps
 
 redux-tiny-router has a initUniversal function, that returns a promise, this promise resolves with data.html (with the rendered app)
-and data.state with your state, now just send those in and presto, redux-tiny-router handles async on react just fine as long as all 
-async operations are done using actions , and that those actions ether return a promise or have an attribute that is a promise, you can 
+and data.state with your state, now just send those in, and presto, redux-tiny-router handles async on react just fine as long as all 
+async operations are done using actions, and that those actions ether return a promise or have an attribute that is a promise, you can 
 even load data on componentWillMount on react applications, you also don't need to wait or synchronize any async operations, as the 
-router will wait and re-render server side if on the first render, async actions where fired modifying the state,
-this makes the client receive the complete state of your app 
+router will wait and re-render server side if on the first render, async actions where fired modifying the state.
+This makes the client not only receive the complete state of your app but also the final render from that state. 
 
 This example use a ejs template as it's quite elegant for this, or you could just use a react component 
   
