@@ -1,7 +1,4 @@
-//import * as utils from '../utils/utils.js';
 import {utils}  from '../utils/utils.js';
-import * as a from '../actions/actions.js';
-
 
 function changeBrowserURL(action){
     if (__CLIENT__) {

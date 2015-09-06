@@ -10,13 +10,14 @@ It's simple, and it's small,  example app in [react-redux-tiny](https://github.c
 Create your store with the redux-tiny-router applyMiddleware
 
 ```javascript
-import { createStore} from 'redux';
+import {createStore} from 'redux';
 import {applyMiddleware} from 'redux-tiny-router'
 import * as yourReducers from './someplace'
 import yourMiddleware from './someotherplace'
 
 // Don't combine the reducers the middleware does this for you 
-  var finalCreateStore = applyMiddleware(yourMiddleware)(createStore); 
+  let middleware = [yourMiddleware]; //and others you use
+  var finalCreateStore = applyMiddleware(...middleware)(createStore); 
   store = finalCreateStore(yourReducers,{}); //just pass your reducers object
 ```
 
@@ -325,7 +326,7 @@ It's quite simple really, but now that you know this, it's easy to create a midd
 let's make something cool here, if the user is going to a secure place in your app let's redirect him to /login 
 you can see the full implementation in [react-redux-tiny](https://github.com/Agamennon/react-redux-tiny) example app. 
 
-inside you middleware..
+inside your middleware..
  
 ```javascript
 
@@ -476,15 +477,17 @@ Create your store with the redux-tiny-router middleware and reducer
 
 ```javascript
 import { createStore, applyMiddleware, combineReducers} from 'redux';
-import { middleware as reduxTinyRouterMiddleware, reducer as reduxTinyRouterReducer } from 'redux-tiny-router';
+import {tinyMiddleware ,tinyReducer} from 'redux-tiny-router';
 import * as yourReducers from './reducers'
 
-  var reducer  = combineReducers(Object.assign({},reduxTinyRouterReducer,yourReducers));
-  // reduxTinyRouterMiddleware needs to come after your middleware if you want to enable things like stopping routes on your middleware
-  var finalCreateStore = applyMiddleware(appMiddleware,reduxTinyRouterMiddleware)(createStore); 
+let middleware = [appMiddleware,tinyMiddleware]; //notice tinyMiddleware must be the last one;
+  //middleware.unshift(tinyUniversal); //import tinyUniversal and uncomment if you are building a universal app
+  var reducer  = combineReducers(Object.assign({},tinyReducer,yourReducers));
+  var finalCreateStore = applyMiddleware(...middleware)(createStore); 
   store = finalCreateStore(reducer,{});
 ```
 
+if you are building an universal app, you need to bring 
 Standard stuff, for now you just added a middleware and a reducer from redux-tiny-router, you should turn this in to a function
 that returns the store  that you can import for convenience and if you plan on doing an Universal app 
 
