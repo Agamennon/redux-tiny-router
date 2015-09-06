@@ -41,6 +41,7 @@ export function urlChanged(url, option){
 
 export function changeUrl(url, option){
     var router = utils.urlToRouter(url);
+
     return {
         type:'ROUTER_NAVIGATION',
         router,
@@ -81,6 +82,7 @@ export function doPreventedNavigation(){
             var url = getState().router.attemptedOnPrevent;
             if (url){
                 dispatch(allowNavigation());
+
                 if (url === '_back'){
                     history.back();
                     return
@@ -91,6 +93,7 @@ export function doPreventedNavigation(){
                 }
 
                 dispatch(changeUrl(url));
+
             } else {
                 console.warn('user have not attempted navegating under prevent!');
             }

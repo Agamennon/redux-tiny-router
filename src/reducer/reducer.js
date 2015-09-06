@@ -64,7 +64,6 @@ function router (state = {},action= {}){
 
 
         default:
-
             return {
                 ...state
             }

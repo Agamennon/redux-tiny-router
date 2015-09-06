@@ -1,5 +1,8 @@
 ## Change log
 
+#### 0.4.3 - 2015/09/06
+minor clean up, scrollup on ROUTE_NAVIGATION, preserve scroll on back/forward
+
 #### 0.4.2 - 2015/09/04
 router.previous now holds the previous url
 navigateTo now has optional boolean parameter for silent navigation

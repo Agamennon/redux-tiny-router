@@ -16,18 +16,6 @@ var reduxExternal = {
     amd: 'redux'
 };
 
-
-/*
-var queryStringExternal = {
-    root: 'query-string',
-    commonjs2: 'query-string',
-    commonjs: 'query-string',
-    amd: 'query-string'
-};
-*/
-
-
-
 module.exports = {
     //context: __dirname + "/src",
     entry: "./src/index.js",

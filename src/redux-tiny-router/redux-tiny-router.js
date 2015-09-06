@@ -10,6 +10,7 @@ export function init (store) {
     window.__CLIENT__ = true;
 
     var url = __UNIVERSAL__ ? store.getState().router.url : window.location.pathname + window.location.search;
+
     store.dispatch(actions.urlChanged(url));
 
     window.onbeforeunload = function(e) {
@@ -19,6 +20,7 @@ export function init (store) {
     };
 
     window.onpopstate = function(e){
+
         if (skipevent) {
             skipevent = false;
             utils.navindex = e.state || 0;  //navindex is necessary as html5 new api did not bless us with information regarding usage of back / forward button
@@ -29,7 +31,6 @@ export function init (store) {
         index = e.state || 0;
         navindex = utils.navindex;
         direction = (index < navindex) ? '_back':'_forward';
-        console.log(direction);
         url = window.location.pathname + window.location.search;
 
         if (store.getState().router.preventNavigation){ //if router is preventing navigation

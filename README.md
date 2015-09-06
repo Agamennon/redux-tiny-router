@@ -4,7 +4,7 @@ A Router made for Redux and made for universal apps! stop using the router as a 
 
 It's simple, and it's small,  example app in [react-redux-tiny](https://github.com/Agamennon/react-redux-tiny) 
 
-### Using client side OPTION1 (store enhancer)
+### Using client side OPTION1 (store enhancer) OPTION2 (bring all yourself) at the end.
 
 
 Create your store with the redux-tiny-router applyMiddleware
