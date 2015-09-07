@@ -1,5 +1,10 @@
 ## Change log
 
+#### 0.4.6 - 2015/09/07
+- Pushstate will fallback to refresh if not available
+- initUniversal now also accepts initial state
+
+
 #### 0.4.4 - 2015/09/06
 - redux 2.0
 - scroll up on ROUTE_NAVIGATION, preserve scroll on back/forward (standard behaviour)

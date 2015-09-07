@@ -11,7 +11,7 @@ export function init (store) {
 
     var url = __UNIVERSAL__ ? store.getState().router.url : window.location.pathname + window.location.search;
 
-    store.dispatch(actions.urlChanged(url));
+    store.dispatch(actions.urlChanged(url,'popEvent'));
 
     window.onbeforeunload = function(e) {
         if (store.getState().router.preventNavigation && store.getState().router.preventNavigationMessage.length > 0){
@@ -46,13 +46,14 @@ export function init (store) {
 
 }
 
-export function initUniversal (url,createStore,Layout){
+export function initUniversal (url,createStore,Layout,initialState){
 
     return new Promise ((resolve,reject) =>{
 
         global.__CLIENT__ = false;
 
-        var store = createStore({},'http://'+url),
+        initialState = initialState || {};
+        var store = createStore(initialState,'http://'+url),
             state = {},
             reRender = false,
             rendered = false,
