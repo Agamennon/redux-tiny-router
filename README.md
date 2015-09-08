@@ -44,7 +44,7 @@ Some more cool actions:
  preventNavigation(); //bonus! call this with a string and will prevent the user from navigating away from the page too!
  ```
  
-Does what it says (it also blocks forward and back), after you call this you lock navigation, useful if the user is on a form and you want to warn him about pending changes,
+Does what it says (it also blocks forward and back), after you call this you lock navigation, useful if the user is on a form and you want to warn them about pending changes,
 if the user attempts to navigate, it fires and action `type:PREVENTED_NAVIGATION_ATTEMPTED` that will set a field in your router with
 the attempted route, you actually don't need to worry about this, you can just check on your app if the value on the router.attemptedOnPrevent 
 contains a value (this value is the attempted url) in this case you can show a pop-up warning the user of pending changes.
@@ -323,7 +323,7 @@ The router property already contains a populated router object, when this action
 it will read the action.router.url property and set the browser with that url, it will then reach the router reducer, that will make router part of the state. 
 It's quite simple really, but now that you know this, it's easy to create a middleware to intercept this action.   
  
-let's make something cool here, if the user is going to a secure place in your app let's redirect him to /login 
+let's make something cool here, if the user is going to a secure place in your app let's redirect them to /login 
 you can see the full implementation in [react-redux-tiny](https://github.com/Agamennon/react-redux-tiny) example app. 
 
 inside your middleware..
@@ -337,7 +337,7 @@ inside your middleware..
     if (path === '/login') //if user wants to login thats ok!
        return next(action);
     if (isSecurePlace && !loggedIn){
-       dispatch(routerActions.preventedNavigationAttempted(url)); //router will now store the attempted url (you can use this to send him where he wanted to go after auth)
+       dispatch(routerActions.preventedNavigationAttempted(url)); //router will now store the attempted url (you can use this to send the user where they wanted to go after auth)
        dispatch(routerActions.navigateTo('/login'));  //navigate to /login
        return;  // this will stop further ROUTER_NAVIGATION processing, the action it will never reach the router middleware or the reducer
     }
