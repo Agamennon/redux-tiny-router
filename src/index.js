@@ -7,7 +7,9 @@ import * as reduxTinyRouter from './redux-tiny-router/redux-tiny-router.js';
 export {reduxTinyRouter}
 export {applyMiddleware} from './enhancer/enhancer'
 export {router as tinyReducer} from './reducer/reducer.js';
-export {Link} from './components/link.jsx';
 export {utils} from './utils/utils';
+export {Link} from './components/link.jsx';
+export {Route} from './components/route.jsx';
+
 
 
