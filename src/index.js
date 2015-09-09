@@ -10,6 +10,7 @@ export {router as tinyReducer} from './reducer/reducer.js';
 export {utils} from './utils/utils';
 export {Link} from './components/link.jsx';
 export {Route} from './components/route.jsx';
+export {Router} from './components/router.jsx';
 
 
 
