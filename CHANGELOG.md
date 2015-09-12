@@ -1,6 +1,6 @@
 ## Change log
 
-#### 0.5.0 - 2015/09/07
+#### 0.5.1 - 2015/09/12
 - Router now keeps scroll position on routes
 - New router and route react component (no nasting yet) chooses first route
 - navigateTo action now has option parameter
