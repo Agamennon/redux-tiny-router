@@ -3,17 +3,17 @@ import {utils} from '../utils/utils.js';
 
 
 // ****************************** NAVIGATION *****************************************
-export function navigateTo(path, params, silent){
-    if (typeof params === 'boolean'){
-        silent = params;
+export function navigateTo(path, params, option){
+
+    if (typeof params === 'string'){
+        option = params;
         params = undefined;
     }
-
     var url = utils.toQueryString(path,params);
+    console.log(option);
     return {
-        type:'RTR_ACTION',
+       type:'RTR_ACTION',
         work:(dispatch,getState)=>{
-            const option = silent?'silent':'';
             dispatch(urlChanged(url,option))
         }
 

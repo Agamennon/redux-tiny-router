@@ -2,6 +2,7 @@ import * as qs from 'query-string'
 import HttpHash from 'http-hash'
 
 var navindex = 0;
+var scrollpos = {};
 var hash = HttpHash();
 
 function getInfo  (url,hashObj=hash){
@@ -79,6 +80,7 @@ function toQueryString (path,query){
 
 export default  {
     utils:{
+        scrollpos,
         navindex,
         set,
         setRoutes,

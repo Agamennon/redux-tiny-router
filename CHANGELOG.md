@@ -1,5 +1,13 @@
 ## Change log
 
+#### 0.5.0 - 2015/09/07
+- Router now keeps scroll position on routes
+- New router and route react component (no nasting yet) chooses first route
+- navigateTo action now has option parameter
+- new option 'scroll' will scroll to least position on the route
+- Link react component also updated to support option prop
+
+
 #### 0.4.6 - 2015/09/07
 - Pushstate will fallback to refresh if not available
 - initUniversal now also accepts initial state

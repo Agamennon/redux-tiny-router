@@ -8,11 +8,11 @@ export class Link extends React.Component {
 
     click(e){
          e.preventDefault();
-         this.context.store.dispatch(actions.navigateTo(this.props.path,this.props.search));
+         this.context.store.dispatch(actions.navigateTo(this.props.path,this.props.search,this.props.option));
     }
 
     render() {
-         const { path, search, ...rest } = this.props;
+         const { path, search, option, ...rest } = this.props;
          let href = `${path}`;
          if (search) href = href + `?${qs.stringify(search)}`;
          return (
