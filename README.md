@@ -32,9 +32,9 @@ but how to change the route inside the app?
 Yup, you call an action, first import the router actions:
 
 ```javascript
-import {routerActions} from 'redux-tiny-router'
+import {tinyActions} from 'redux-tiny-router'
 //navigates to a route with optional search object
-dispatch(routerActions.navigateTo('/somepath', {message:1}));
+dispatch(tinyActions.navigateTo('/somepath', {message:1}));
 ```
 
 The router will navigate to (/somepath?message=1) and set the router object with the info, for that it fires an action `type:'ROUTER_NAVIGATION'`
@@ -339,8 +339,8 @@ inside your middleware..
     if (path === '/login') //if user wants to login thats ok!
        return next(action);
     if (isSecurePlace && !loggedIn){
-       dispatch(routerActions.preventedNavigationAttempted(url)); //router will now store the attempted url (you can use this to send him where he wanted to go after auth)
-       dispatch(routerActions.navigateTo('/login'));  //navigate to /login
+       dispatch(tinyActions.preventedNavigationAttempted(url)); //router will now store the attempted url (you can use this to send him where he wanted to go after auth)
+       dispatch(tinyActions.navigateTo('/login'));  //navigate to /login
        return;  // this will stop further ROUTER_NAVIGATION processing, the action it will never reach the router middleware or the reducer
     }
     return next(action);
