@@ -10,7 +10,6 @@ export function navigateTo(path, params, option){
         params = undefined;
     }
     var url = utils.toQueryString(path,params);
-    console.log(option);
     return {
        type:'RTR_ACTION',
         work:(dispatch,getState)=>{

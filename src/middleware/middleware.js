@@ -4,16 +4,19 @@ import * as actions from '../actions/actions.js';
 function changeBrowserURL(action){
 
     const option = action.option;
-    if (option  === 'scroll'){
-        const path = action.router.path || '/';
-        const pos = utils.scrollpos[path] || 0;
+
+    function setScroll(pos){
         setTimeout(()=>{
             document.body.scrollTop = document.documentElement.scrollTop = pos;
         },0);
-    } else {
-        document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
-
+    if (option  === 'scroll'){
+        const path = action.router.path || '/';
+        const pos = utils.scrollpos[path] || 0;
+        setScroll(pos);
+    } else if(option !== 'popEvent') {
+        setScroll(0);
+    }
     switch (option) {
         case ('silent'):
             history.replaceState(utils.navindex, null, action.router.previous);
@@ -27,9 +30,9 @@ function changeBrowserURL(action){
 
 }
 
-
+//detect if there are scrollbars http://stackoverflow.com/questions/2146874/detect-if-a-page-has-a-vertical-scrollbar
+//todo pass in option to track a particular element
 function storeScroll (path){
-
     path = path || '/';
     utils.scrollpos[path] = document.body.scrollTop;
 

@@ -17,7 +17,7 @@ render() {
         let { path, url, component, ...rest } = this.props;
         url = url ? url : this.context.store.getState().router.url;
         var Response = (utils.check(this.props.path,url)) ? component: Null;
-        return <Response/>
+        return <Response {...rest}/>
     }
 }
 

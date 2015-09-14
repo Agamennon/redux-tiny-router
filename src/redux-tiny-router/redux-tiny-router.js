@@ -19,6 +19,7 @@ export function init (store) {
         }
     };
 
+
     window.onpopstate = function(e){
 
         if (skipevent) {
