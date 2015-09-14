@@ -30,7 +30,6 @@ function changeBrowserURL(action){
 
 }
 
-//detect if there are scrollbars http://stackoverflow.com/questions/2146874/detect-if-a-page-has-a-vertical-scrollbar
 //todo pass in option to track a particular element
 function storeScroll (path){
     path = path || '/';
