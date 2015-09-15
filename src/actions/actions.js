@@ -107,11 +107,22 @@ export function doPreventedNavigation(){
 
 
 //  ************************* UNIVERSAL HELPERS *************************************
-export function universalSetPeniding(val, done){
+
+export function universalResetPending(){
     return {
-        type:'UNIVERSAL_SET_PENDING',
-        val,
-        done
+        type:'UNIVERSAL_RESET_PENDING'
+    }
+}
+
+export function universalIncPending(){
+    return {
+        type:'UNIVERSAL_INC_PENDING'
+    }
+}
+
+export function universalDecPending(){
+    return {
+        type:'UNIVERSAL_DEC_PENDING'
     }
 }
 

@@ -8,15 +8,11 @@ function isPromise(val) {
 
 
 function keep(promise,dispatch, getState){
-    var pending = getState().router.pending;
-    pending++;
-    dispatch(actions.universalSetPeniding(pending));
 
+    dispatch(actions.universalIncPending());
     promise.then(function(data){
-        pending = getState().router.pending;
-        pending--;
         setTimeout(()=>{ //dont be mad at this! its seems dirty but it just makes my resolution of the promise happens after the user.
-            dispatch(actions.universalSetPeniding(pending));
+            dispatch(actions.universalDecPending());
         },0)
     });
 }
