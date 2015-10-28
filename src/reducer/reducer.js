@@ -29,11 +29,11 @@ function router (state = {},action= {}){
 
 
             var routerObj = action.router;
-            state.previous = state.url;
 
             return {
                 ...state,
-                ...routerObj
+                ...routerObj,
+                previous: state.url
             };
 
 
@@ -75,4 +75,3 @@ function router (state = {},action= {}){
 export default {
     router:{router}
 }
-
