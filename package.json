@@ -23,7 +23,7 @@
   },
   "license": "MIT",
   "scripts": {
-      "build": "webpack",
+      "build": "webpack --config webpack.config.js",
       "postinstall": "npm run build"
   },
   "dependencies": {
