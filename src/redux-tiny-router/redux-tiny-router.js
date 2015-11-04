@@ -6,7 +6,8 @@ import React from 'react';
 var skipevent = false;
 export function init (store) {
 
-    window.__UNIVERSAL__ = __UNIVERSAL__ || false;
+    var universal = (typeof __UNIVERSAL__ === 'undefined') ? false : __UNIVERSAL__;
+    window.__UNIVERSAL__ = universal;
     window.__CLIENT__ = true;
 
     var url = __UNIVERSAL__ ? store.getState().router.url : window.location.pathname + window.location.search;
