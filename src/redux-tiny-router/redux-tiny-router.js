@@ -2,6 +2,7 @@ var qs = require('query-string');
 import * as actions from '../actions/actions.js'
 import {utils} from '../utils/utils';
 import React from 'react';
+import { renderToString } from 'react-dom/server';
 
 var skipevent = false;
 export function init (store) {
@@ -71,7 +72,7 @@ export function initUniversal (url,createStore,Layout,initialState){
                 unsubscribe();
                 store.dispatch(actions.universalPromiseDone());
                 if (reRender){
-                   html = React.renderToString(<Layout store={store}/>);
+                   html = renderToString(<Layout store={store}/>);
                 }
                 delete state.router.pending;
                 delete state.router.syncActionsDone;
@@ -81,7 +82,7 @@ export function initUniversal (url,createStore,Layout,initialState){
             if ((pending ===0) && (!rendered)){
                 if (syncActionsDone){
 
-                    html = React.renderToString(<Layout store={store}/>);
+                    html = renderToString(<Layout store={store}/>);
                     rendered = true;
                     store.dispatch(actions.syncActionsPending());
                 }
@@ -97,4 +98,3 @@ export function initUniversal (url,createStore,Layout,initialState){
     });
 
 }
-
