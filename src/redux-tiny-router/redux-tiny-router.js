@@ -62,7 +62,7 @@ export function initUniversal (url,createStore,Layout,initialState){
             pending,
             html;
 
-        store.dispatch(actions.universalSetPeniding(0));
+        store.dispatch(actions.universalResetPending());
 
         var unsubscribe = store.subscribe(()=>{
             state = store.getState();

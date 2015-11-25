@@ -1,6 +1,5 @@
 
 function router (state = {},action= {}){
-
     switch (action.type) {
 
         case 'PREVENT_NAVIGATION':
@@ -17,7 +16,6 @@ function router (state = {},action= {}){
             };
 
         case 'ALLOW_NAVIGATION':
-
             delete state.attemptedOnPrevent;
             return {
                 ...state,
@@ -26,23 +24,30 @@ function router (state = {},action= {}){
             };
 
         case 'ROUTER_NAVIGATION':
-
-
             var routerObj = action.router;
             state.previous = state.url;
-
             return {
                 ...state,
                 ...routerObj
             };
 
-
-        case 'UNIVERSAL_SET_PENDING':
+        case 'UNIVERSAL_RESET_PENDING':
             return {
                 ...state,
-                pending:action.val
+                pending: 0
             };
 
+        case 'UNIVERSAL_INC_PENDING':
+            return {
+                ...state,
+                pending:state.pending+1
+            };
+
+        case 'UNIVERSAL_DEC_PENDING':
+            return {
+                ...state,
+                pending:state.pending-1
+            };
 
         case 'UNIVERSAL_PROMISE_DONE':
             return {
