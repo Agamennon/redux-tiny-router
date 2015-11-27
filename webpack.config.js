@@ -37,7 +37,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.jsx?$/,
+                test: /\.(jsx?|js)$/,
               //  loader:'babel?stage=0',
                loader:'babel?optional[]=runtime&stage=0',
          //       loader:'babel?optional[]=runtime&stage=0',
@@ -47,4 +47,3 @@ module.exports = {
         ]
     }
 };
-

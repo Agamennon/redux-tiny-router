@@ -22,11 +22,16 @@
     "url": "https://github.com/Agamennon/redux-tiny-router.git"
   },
   "license": "MIT",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "postinstall": "npm run build"
+  },
   "dependencies": {
     "http-hash": "^2.0.0",
     "query-string": "^2.4.0",
     "react": "^0.13.3",
-    "redux": "^2.0.0"
+    "redux": "^2.0.0",
+    "webpack": "^1.12.2"
   },
   "devDependencies": {
     "babel-loader": "^5.3.2",
