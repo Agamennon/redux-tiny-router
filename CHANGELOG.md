@@ -1,5 +1,9 @@
 ## Change log
 
+#### 0.6.0 - 2015/09/14
+- React 0.14.3 
+
+
 #### 0.5.2 - 2015/09/14
 - Fixed bug - scroll position on back
 - route component now carrys props to component

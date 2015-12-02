@@ -1,4 +1,5 @@
-import React from 'react';
+var React = require('react');
+
 import qs from 'query-string';
 import * as actions from '../actions/actions.js'
 
