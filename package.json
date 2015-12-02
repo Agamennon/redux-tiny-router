@@ -1,6 +1,6 @@
 {
   "name": "redux-tiny-router",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": {
     "name": "Guilherme Guerchmann",
     "email": "gui@guerch.net",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Agamennon/redux-tiny-router.git"
+    "url": "https://github.com/Agamennon/redux-tiny-router.git#react1.4"
   },
   "license": "MIT",
   "dependencies": {
