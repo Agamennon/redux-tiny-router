@@ -5,6 +5,10 @@ var navindex = 0;
 var scrollpos = {};
 var hash = HttpHash();
 
+function resetRoutes() {
+    hash = HttpHash();
+}
+
 function getInfo  (url,hashObj=hash){
     return hashObj.get(url.split('?')[0]);
 }
@@ -80,6 +84,7 @@ function toQueryString (path,query){
 
 export default  {
     utils:{
+        resetRoutes,
         scrollpos,
         navindex,
         set,
